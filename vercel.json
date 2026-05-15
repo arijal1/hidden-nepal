@@ -1,6 +1,3 @@
 {
-  "buildCommand": "cd ../.. && pnpm install --frozen-lockfile=false && pnpm build --filter=@hidden-nepal/web",
-  "installCommand": "pnpm install --frozen-lockfile=false",
-  "framework": "nextjs",
-  "outputDirectory": ".next"
+  "framework": "nextjs"
 }
