@@ -13,8 +13,8 @@ export default async function AdminReviewsPage({ searchParams }: { searchParams:
     .order("created_at", { ascending: false })
     .limit(50);
 
-  if ((await searchParams).filter === "pending") query = query.eq("is_published", false);
-  if ((await searchParams).filter === "flagged") query = query.eq("is_flagged", true);
+  if (filter === "pending") query = query.eq("is_published", false);
+  if (filter === "flagged") query = query.eq("is_flagged", true);
 
   const { data: reviews } = await query;
 
@@ -37,7 +37,7 @@ export default async function AdminReviewsPage({ searchParams }: { searchParams:
           <a key={f.label}
             href={f.value ? `/admin/reviews?filter=${f.value}` : "/admin/reviews"}
             className={`text-xs px-3 py-1.5 rounded-full border transition-colors ${
-              (await searchParams).filter === f.value || (!(await searchParams).filter && !f.value)
+              filter === f.value || (!filter && !f.value)
                 ? "border-brand-500/40 bg-brand-500/10 text-brand-400"
                 : "border-white/[0.08] text-white/40 hover:text-white/70"
             }`}

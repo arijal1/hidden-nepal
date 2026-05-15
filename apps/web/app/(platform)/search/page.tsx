@@ -45,7 +45,8 @@ export default async function SearchPage({
 }: {
   searchParams: Promise<{ q?: string }>;
 }) {
-  const query = (await searchParams).q?.trim() ?? "";
+  const { q } = await searchParams;
+  const query = q?.trim() ?? "";
   const results = await search(query);
   const total = results.destinations.length + results.treks.length + results.gems.length;
 
