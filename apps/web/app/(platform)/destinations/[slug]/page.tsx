@@ -26,7 +26,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const destination = await getDestinationBySlug((await params).slug);
   if (!destination) return {};
@@ -38,7 +38,7 @@ export async function generateMetadata({
 export default async function DestinationPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
   const destination = await getDestinationBySlug((await params).slug);
   if (!destination) notFound();
