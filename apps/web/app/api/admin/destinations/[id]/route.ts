@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/server";
 
-export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const data = await req.json();
     const supabase = createAdminClient();
@@ -25,7 +25,7 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
         seo_title: data.seoTitle || null,
         seo_description: data.seoDescription || null,
       })
-      .eq("id", params.id);
+      .eq("id", (await params).id);
 
     if (error) throw error;
     return NextResponse.json({ success: true });
