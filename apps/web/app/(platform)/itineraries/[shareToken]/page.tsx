@@ -15,8 +15,8 @@ async function getItinerary(shareToken: string) {
   return data;
 }
 
-export async function generateMetadata({ params }: { params: { shareToken: string } }): Promise<Metadata> {
-  const itinerary = await getItinerary(params.shareToken);
+export async function generateMetadata({ params }: { params: Promise<{ shareToken: string }> }): Promise<Metadata> {
+  const itinerary = await getItinerary((await params).shareToken);
   if (!itinerary) return {};
   return {
     title: itinerary.title ?? `${itinerary.days}-Day Nepal Itinerary`,
@@ -24,8 +24,8 @@ export async function generateMetadata({ params }: { params: { shareToken: strin
   };
 }
 
-export default async function SharedItineraryPage({ params }: { params: { shareToken: string } }) {
-  const itinerary = await getItinerary(params.shareToken);
+export default async function SharedItineraryPage({ params }: { params: Promise<{ shareToken: string }> }) {
+  const itinerary = await getItinerary((await params).shareToken);
   if (!itinerary) notFound();
 
   const plan = itinerary.generated_plan;

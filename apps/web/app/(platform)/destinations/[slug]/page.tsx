@@ -28,7 +28,7 @@ export async function generateMetadata({
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
-  const destination = await getDestinationBySlug(params.slug);
+  const destination = await getDestinationBySlug((await params).slug);
   if (!destination) return {};
   return getDestinationMetadata(destination);
 }
@@ -40,7 +40,7 @@ export default async function DestinationPage({
 }: {
   params: { slug: string };
 }) {
-  const destination = await getDestinationBySlug(params.slug);
+  const destination = await getDestinationBySlug((await params).slug);
   if (!destination) notFound();
 
   const inSeason = isBestSeason(destination.bestSeason);

@@ -15,14 +15,14 @@ export async function generateStaticParams() {
   return slugs.map((slug) => ({ slug }));
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const trek = await getTrekBySlug(params.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const trek = await getTrekBySlug((await params).slug);
   if (!trek) return {};
   return getTrekMetadata(trek);
 }
 
-export default async function TrekDetailPage({ params }: { params: { slug: string } }) {
-  const trek = await getTrekBySlug(params.slug);
+export default async function TrekDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const trek = await getTrekBySlug((await params).slug);
   if (!trek) notFound();
 
   const cfg = difficultyConfig[trek.difficulty];

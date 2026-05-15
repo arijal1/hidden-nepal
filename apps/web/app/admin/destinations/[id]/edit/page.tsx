@@ -2,12 +2,12 @@ import { notFound } from "next/navigation";
 import { createAdminClient } from "@/lib/supabase/server";
 import { DestinationEditClient } from "./DestinationEditClient";
 
-export default async function EditDestinationPage({ params }: { params: { id: string } }) {
+export default async function EditDestinationPage({ params }: { params: Promise<{ id: string }> }) {
   const supabase = createAdminClient();
   const { data: destination } = await supabase
     .from("destinations")
     .select("*")
-    .eq("id", params.id)
+    .eq("id", (await params).id)
     .single();
 
   if (!destination) notFound();

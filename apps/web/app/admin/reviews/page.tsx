@@ -1,7 +1,7 @@
 import { createAdminClient } from "@/lib/supabase/server";
 import { ReviewModerationClient } from "./ReviewModerationClient";
 
-export default async function AdminReviewsPage({ searchParams }: { searchParams: { filter?: string } }) {
+export default async function AdminReviewsPage({ searchParams }: { searchParams: Promise<{ filter?: string }> }) {
   const supabase = createAdminClient();
   let query = supabase
     .from("reviews")
