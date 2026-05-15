@@ -1,0 +1,330 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&family=Mukta:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── CSS Design Tokens ─────────────────────────────── */
+:root {
+  /* Brand */
+  --color-brand-50: #f0f9f0;
+  --color-brand-400: #52b788;
+  --color-brand-500: #2d6a4f;
+  --color-brand-600: #1b4332;
+  --color-brand-950: #081c15;
+
+  /* Gold */
+  --color-gold-400: #f4a261;
+  --color-gold-500: #e76f51;
+
+  /* Sky */
+  --color-sky-300: #90e0ef;
+
+  /* Base / Background */
+  --color-bg: #0a0f0a;
+  --color-bg-subtle: #0f1410;
+  --color-bg-muted: rgba(255,255,255,0.03);
+
+  /* Text */
+  --color-text-primary: #ffffff;
+  --color-text-secondary: rgba(255,255,255,0.65);
+  --color-text-muted: rgba(255,255,255,0.35);
+  --color-text-faint: rgba(255,255,255,0.18);
+
+  /* Borders */
+  --color-border: rgba(255,255,255,0.08);
+  --color-border-subtle: rgba(255,255,255,0.05);
+  --color-border-brand: rgba(45,106,79,0.3);
+  --color-border-gold: rgba(244,162,97,0.25);
+
+  /* Glass */
+  --glass-bg: rgba(255,255,255,0.05);
+  --glass-bg-hover: rgba(255,255,255,0.08);
+  --glass-border: rgba(255,255,255,0.10);
+  --glass-blur: blur(20px);
+
+  /* Shadows */
+  --shadow-card: 0 8px 32px rgba(0,0,0,0.25);
+  --shadow-card-hover: 0 24px 56px rgba(0,0,0,0.4);
+  --shadow-brand: 0 8px 32px rgba(45,106,79,0.35);
+
+  /* Fonts */
+  --font-display: 'Cormorant Garamond', 'Georgia', serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+  --font-mono: 'DM Mono', 'Courier New', monospace;
+  --font-nepali: 'Mukta', sans-serif;
+
+  /* Transitions */
+  --transition-spring: cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 200ms;
+  --duration-base: 350ms;
+  --duration-slow: 600ms;
+  --duration-cinematic: 1000ms;
+
+  /* Layout */
+  --nav-height: 64px;
+  --content-max: 1200px;
+  --content-wide: 1440px;
+}
+
+/* ─── Base Reset & Global ────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ─── Typography ─────────────────────────────────────── */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+h5, h6 {
+  font-family: var(--font-body);
+  font-weight: 600;
+}
+
+/* ─── Scrollbar ──────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: var(--color-bg); }
+::-webkit-scrollbar-thumb { background: var(--color-brand-500); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-brand-400); }
+
+/* ─── Selection ──────────────────────────────────────── */
+::selection {
+  background: rgba(45,106,79,0.35);
+  color: white;
+}
+
+/* ─── Focus ──────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--color-brand-400);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ─── Component Classes ──────────────────────────────── */
+@layer components {
+
+  /* Glass card */
+  .glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: 1rem;
+  }
+
+  .glass-card:hover {
+    background: var(--glass-bg-hover);
+  }
+
+  /* Destination card image zoom */
+  .destination-card-img {
+    transition: transform var(--duration-slow) var(--transition-spring);
+    will-change: transform;
+  }
+  .destination-card:hover .destination-card-img {
+    transform: scale(1.06);
+  }
+
+  /* Gradient text */
+  .text-gradient-brand {
+    background: linear-gradient(135deg, #52b788, #2d6a4f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-gold {
+    background: linear-gradient(135deg, #f4a261, #e76f51);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Section label style */
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-brand-400);
+  }
+
+  /* Navigation pill */
+  .nav-pill {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid var(--glass-border);
+    border-radius: 9999px;
+  }
+
+  /* Gem badge */
+  .gem-badge {
+    background: linear-gradient(135deg, #e76f51, #f4a261);
+    color: white;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 9999px;
+    display: inline-block;
+  }
+
+  /* Difficulty badges */
+  .difficulty-easy    { color: #52b788; border-color: rgba(82,183,136,0.3); background: rgba(82,183,136,0.08); }
+  .difficulty-moderate { color: #f4a261; border-color: rgba(244,162,97,0.3); background: rgba(244,162,97,0.08); }
+  .difficulty-strenuous { color: #e76f51; border-color: rgba(231,111,81,0.3); background: rgba(231,111,81,0.08); }
+  .difficulty-extreme { color: #c1121f; border-color: rgba(193,18,31,0.3); background: rgba(193,18,31,0.08); }
+
+  /* Button variants */
+  .btn-primary {
+    background: linear-gradient(135deg, #2d6a4f, #52b788);
+    color: white;
+    font-weight: 600;
+    border: none;
+    border-radius: 0.75rem;
+    padding: 0.875rem 2rem;
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--transition-smooth);
+    box-shadow: 0 8px 32px rgba(45,106,79,0.35);
+  }
+  .btn-primary:hover {
+    box-shadow: 0 12px 40px rgba(45,106,79,0.5);
+    transform: translateY(-1px);
+  }
+  .btn-primary:active { transform: translateY(0); }
+
+  .btn-ghost {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    color: rgba(255,255,255,0.8);
+    border-radius: 0.75rem;
+    padding: 0.875rem 2rem;
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--transition-smooth);
+  }
+  .btn-ghost:hover { background: var(--glass-bg-hover); }
+
+  /* Loading skeleton */
+  .skeleton {
+    background: linear-gradient(
+      90deg,
+      rgba(255,255,255,0.04) 25%,
+      rgba(255,255,255,0.08) 50%,
+      rgba(255,255,255,0.04) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 0.5rem;
+  }
+
+  /* Map container */
+  .mapbox-container {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    overflow: hidden;
+  }
+
+  /* Scrollable horizontal track */
+  .scroll-track {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  .scroll-track::-webkit-scrollbar { display: none; }
+  .scroll-track > * { scroll-snap-align: start; flex-shrink: 0; }
+
+  /* Animated underline link */
+  .link-underline {
+    position: relative;
+    text-decoration: none;
+  }
+  .link-underline::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: currentColor;
+    transition: width var(--duration-base) var(--transition-spring);
+  }
+  .link-underline:hover::after { width: 100%; }
+}
+
+/* ─── Utility Overrides ──────────────────────────────── */
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .text-pretty  { text-wrap: pretty; }
+
+  .animate-delay-100 { animation-delay: 100ms; }
+  .animate-delay-200 { animation-delay: 200ms; }
+  .animate-delay-300 { animation-delay: 300ms; }
+  .animate-delay-400 { animation-delay: 400ms; }
+  .animate-delay-500 { animation-delay: 500ms; }
+  .animate-delay-600 { animation-delay: 600ms; }
+  .animate-delay-700 { animation-delay: 700ms; }
+  .animate-delay-800 { animation-delay: 800ms; }
+
+  .will-change-transform { will-change: transform; }
+  .will-change-opacity   { will-change: opacity; }
+}
+
+/* ─── Mapbox Overrides ───────────────────────────────── */
+.mapboxgl-popup-content {
+  background: rgba(10,15,10,0.95) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  border-radius: 12px !important;
+  padding: 16px !important;
+  color: white !important;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.5) !important;
+}
+
+.mapboxgl-popup-tip { display: none !important; }
+
+.mapboxgl-ctrl-group {
+  background: rgba(10,15,10,0.9) !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  border-radius: 10px !important;
+  overflow: hidden !important;
+  backdrop-filter: blur(16px) !important;
+}
+
+.mapboxgl-ctrl button {
+  background: transparent !important;
+  color: rgba(255,255,255,0.7) !important;
+}
+
+/* ─── Print ──────────────────────────────────────────── */
+@media print {
+  body { background: white; color: black; }
+  nav, footer, .no-print { display: none !important; }
+}
