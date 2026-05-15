@@ -15,8 +15,9 @@ async function getGems(filter?: string) {
   return data ?? [];
 }
 
-export default async function AdminGemsPage({ searchParams }: { searchParams: { filter?: string } }) {
-  const gems = await getGems(searchParams.filter);
+export default async function AdminGemsPage({ searchParams }: { searchParams: Promise<{ filter?: string }> }) {
+  const sp = await searchParams;
+  const gems = await getGems(sp.filter);
 
   return (
     <div>

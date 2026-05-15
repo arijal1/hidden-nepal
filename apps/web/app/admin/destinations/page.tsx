@@ -22,10 +22,11 @@ async function getDestinations(page = 1, filter?: string) {
 export default async function AdminDestinationsPage({
   searchParams,
 }: {
-  searchParams: { page?: string; filter?: string };
+  searchParams: Promise<{ page?: string; filter?: string }>;
 }) {
-  const page = parseInt(searchParams.page ?? "1");
-  const { data, count } = await getDestinations(page, searchParams.filter);
+  const sp = await searchParams;
+  const page = parseInt(sp.page ?? "1");
+  const { data, count } = await getDestinations(page, sp.filter);
 
   return (
     <div>
@@ -51,7 +52,7 @@ export default async function AdminDestinationsPage({
             key={f.label}
             href={f.value ? `/admin/destinations?filter=${f.value}` : "/admin/destinations"}
             className={`text-xs px-3 py-1.5 rounded-full border transition-colors ${
-              searchParams.filter === f.value || (!searchParams.filter && !f.value)
+              sp.filter === f.value || (!sp.filter && !f.value)
                 ? "border-brand-500/40 bg-brand-500/10 text-brand-400"
                 : "border-white/[0.08] text-white/40 hover:text-white/70"
             }`}

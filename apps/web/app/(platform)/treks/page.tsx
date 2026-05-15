@@ -24,10 +24,11 @@ const DIFFICULTIES: { value: TrekDifficulty | "all"; label: string }[] = [
 export default async function TreksPage({
   searchParams,
 }: {
-  searchParams: { difficulty?: TrekDifficulty };
+  searchParams: Promise<{ difficulty?: TrekDifficulty }>;
 }) {
-  const treks = await getTreks(searchParams.difficulty, 24);
-  const active = searchParams.difficulty ?? "all";
+  const sp = await searchParams;
+  const treks = await getTreks(sp.difficulty, 24);
+  const active = sp.difficulty ?? "all";
 
   return (
     <div className="min-h-screen bg-base-950 pb-24">

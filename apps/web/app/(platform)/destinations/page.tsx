@@ -30,18 +30,19 @@ const PROVINCES: Province[] = [
 export default async function DestinationsPage({
   searchParams,
 }: {
-  searchParams: { category?: string; province?: string; gem?: string; page?: string; q?: string };
+  searchParams: Promise<{ category?: string; province?: string; gem?: string; page?: string; q?: string }>;
 }) {
+  const sp = await searchParams;
   const filters: SearchFilters = {
-    category: (searchParams.category !== "all" ? searchParams.category : undefined) as DestinationCategory | undefined,
-    province: searchParams.province as Province | undefined,
-    isHiddenGem: searchParams.gem === "true" ? true : undefined,
-    query: searchParams.q,
+    category: (sp.category !== "all" ? sp.category : undefined) as DestinationCategory | undefined,
+    province: sp.province as Province | undefined,
+    isHiddenGem: sp.gem === "true" ? true : undefined,
+    query: sp.q,
   };
 
-  const page = parseInt(searchParams.page ?? "1");
+  const page = parseInt(sp.page ?? "1");
   const { data: destinations, total, hasMore } = await getDestinations(filters, page, 12);
-  const activeCategory = searchParams.category ?? "all";
+  const activeCategory = sp.category ?? "all";
 
   return (
     <div className="min-h-screen bg-base-950 pb-24">
@@ -60,7 +61,7 @@ export default async function DestinationsPage({
                 <input
                   type="text"
                   name="q"
-                  defaultValue={searchParams.q}
+                  defaultValue={sp.q}
                   placeholder="Search destinations..."
                   className="bg-white/[0.05] border border-white/[0.1] rounded-xl px-4 py-2.5 text-white placeholder:text-white/25 text-sm outline-none focus:border-brand-500/40 transition-colors w-64"
                 />
@@ -74,7 +75,7 @@ export default async function DestinationsPage({
               {CATEGORIES.map((cat) => (
                 <Link
                   key={cat.value}
-                  href={`/destinations?category=${cat.value}${searchParams.province ? `&province=${searchParams.province}` : ""}`}
+                  href={`/destinations?category=${cat.value}${sp.province ? `&province=${sp.province}` : ""}`}
                   className={`flex items-center gap-1.5 px-4 py-2 rounded-full border text-sm whitespace-nowrap transition-all duration-200 ${
                     activeCategory === cat.value
                       ? "border-brand-500/50 bg-brand-500/10 text-brand-400"
@@ -93,7 +94,7 @@ export default async function DestinationsPage({
               <Link
                 href={`/destinations?category=${activeCategory}`}
                 className={`px-3 py-1.5 rounded-full border text-xs whitespace-nowrap transition-all duration-200 ${
-                  !searchParams.province
+                  !sp.province
                     ? "border-white/20 text-white/70 bg-white/[0.06]"
                     : "border-white/[0.07] text-white/30 hover:text-white/60"
                 }`}
@@ -105,7 +106,7 @@ export default async function DestinationsPage({
                   key={prov}
                   href={`/destinations?category=${activeCategory}&province=${prov}`}
                   className={`px-3 py-1.5 rounded-full border text-xs whitespace-nowrap transition-all duration-200 ${
-                    searchParams.province === prov
+                    sp.province === prov
                       ? "border-brand-500/40 bg-brand-500/[0.08] text-brand-400"
                       : "border-white/[0.07] text-white/30 hover:text-white/60"
                   }`}
