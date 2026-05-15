@@ -146,16 +146,12 @@ export async function getHiddenGems(limit = 9) {
 export async function getAllDestinationSlugs(): Promise<string[]> {
   const { createAdminClient } = await import("@/lib/supabase/server");
   const supabase = createAdminClient();
-
   const { data, error } = await supabase
     .from("destinations")
-    .select("id, slug, name, tagline, category, cover_image_url, avg_rating")
-    .eq("is_published", true)
-    .textSearch("fts", query, { type: "websearch", config: "english" })
-    .limit(limit);
-
+    .select("slug")
+    .eq("is_published", true);
   if (error) return [];
-  return data ?? [];
+  return (data ?? []).map((d: any) => d.slug);
 }
 
 // For static generation — get all published slugs
