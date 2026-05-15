@@ -177,8 +177,11 @@ async function executeOverpassQuery(
 ): Promise<OSMLocation[]> {
   const res = await fetch(OVERPASS_API, {
     method: "POST",
-    body: query,
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: `data=${encodeURIComponent(query)}`,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      "User-Agent": "HiddenNepal/1.0 (hiddennepal.anuprijal.com)",
+    },
   });
 
   if (!res.ok) throw new Error(`Overpass API error: ${res.status}`);
