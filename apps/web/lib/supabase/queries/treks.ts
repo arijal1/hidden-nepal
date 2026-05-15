@@ -26,19 +26,12 @@ export async function getTreks(
 export async function getAllTrekSlugs(): Promise<string[]> {
   const { createAdminClient } = await import("@/lib/supabase/server");
   const supabase = createAdminClient();
-
   const { data, error } = await supabase
     .from("treks")
-    .select(`
-      *,
-      trek_stages(* ORDER BY stage_number ASC)
-    `)
-    .eq("slug", slug)
-    .eq("is_published", true)
-    .single();
-
-  if (error || !data) return null;
-  return data as unknown as Trek;
+    .select("slug")
+    .eq("is_published", true);
+  if (error) return [];
+  return (data ?? []).map((t: any) => t.slug);
 }
 
 
