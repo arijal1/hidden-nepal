@@ -15,12 +15,19 @@ export function PlannerTeaser() {
     <section className="py-20 px-5 relative overflow-hidden">
       <div className="absolute inset-0 bg-aurora pointer-events-none" />
       <div className="container max-w-[680px] mx-auto relative">
-        <AnimatedSection className="text-center mb-10">
-          <p className="section-label mb-3">◈ AI Itinerary Planner</p>
-          <h2 className="text-display-md text-white mb-3">
-            Your perfect Nepal journey,<br />
-            <em className="italic text-brand-400">built by intelligence</em>
+        <AnimatedSection className="text-center mb-12 max-w-2xl mx-auto">
+          <div className="inline-flex items-center gap-3 mb-5">
+            <div className="h-px w-10 bg-brand-500/60" />
+            <span className="text-brand-400 text-xs font-mono tracking-[0.3em] uppercase">Chapter 04 · Plan</span>
+            <div className="h-px w-10 bg-brand-500/60" />
+          </div>
+          <h2 className="font-display text-white leading-[1.05] tracking-[-0.01em]" style={{ fontSize: "clamp(2rem, 4.5vw, 3.5rem)" }}>
+            Your trip,<br />
+            <span className="italic text-brand-400 font-normal">drafted in minutes.</span>
           </h2>
+          <p className="text-white/55 text-base font-light mt-5 max-w-md mx-auto leading-relaxed">
+            Tell us your days, budget, and style. We'll plan the rest.
+          </p>
         </AnimatedSection>
 
         <AnimatedSection delay={0.1}>
@@ -64,7 +71,7 @@ export function PlannerTeaser() {
               <span>✦</span> Generate {days}-Day {style} Itinerary
             </Link>
             <p className="text-white/20 text-xs text-center mt-3 font-mono">
-              Powered by GPT-4o · Includes transport, stay & hidden gems
+              Includes transport, accommodation & hidden gems
             </p>
           </div>
         </AnimatedSection>
