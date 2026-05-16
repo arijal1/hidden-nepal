@@ -43,7 +43,7 @@ export default async function DestinationPage({
   const destination = await getDestinationBySlug((await params).slug);
   if (!destination) notFound();
 
-  const inSeason = isBestSeason(destination.bestSeason);
+  const inSeason = isBestSeason((destination as any).best_season ?? destination.bestSeason);
 
   return (
     <>
@@ -82,7 +82,7 @@ export default async function DestinationPage({
                 <StatItem icon="↑" label="Elevation" value={`${destination.elevationM.toLocaleString()}m`} />
               )}
               <StatItem icon="⭐" label="Rating" value={`${destination.avgRating} (${destination.reviewCount} reviews)`} />
-              <StatItem icon="🗓" label="Best Season" value={destination.bestSeason.join(", ")} />
+              <StatItem icon="🗓" label="Best Season" value={(destination as any).best_season ?? destination.bestSeason.join(", ")} />
               <StatItem icon="📍" label="Province" value={destination.province} />
               {inSeason && (
                 <span className="ml-auto flex items-center gap-2 text-brand-400 text-sm font-medium">
@@ -218,7 +218,7 @@ export default async function DestinationPage({
                     {destination.elevationM && (
                       <FactRow label="Elevation" value={`${destination.elevationM.toLocaleString()}m / ${Math.round(destination.elevationM * 3.281).toLocaleString()}ft`} />
                     )}
-                    <FactRow label="Best Season" value={destination.bestSeason.join(", ")} />
+                    <FactRow label="Best Season" value={(destination as any).best_season ?? destination.bestSeason.join(", ")} />
                     {destination.isHiddenGem && (
                       <FactRow label="Type" value="✦ Hidden Gem" valueClass="text-gold-400" />
                     )}

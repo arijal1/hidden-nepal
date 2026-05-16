@@ -143,10 +143,11 @@ export function getCurrentSeason(): string {
   return "Winter";
 }
 
-export function isBestSeason(bestSeasons: string[]): boolean {
+export function isBestSeason(bestSeasons?: string[] | null): boolean {
+  if (!bestSeasons || !Array.isArray(bestSeasons) || bestSeasons.length === 0) return false;
   const current = getCurrentSeason();
   return bestSeasons.some((s) =>
-    s.toLowerCase().includes(current.toLowerCase())
+    s?.toLowerCase().includes(current.toLowerCase())
   );
 }
 
