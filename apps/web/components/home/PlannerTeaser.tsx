@@ -190,7 +190,7 @@ export function HomeCTA() {
     <section className="py-28 px-5 relative overflow-hidden text-center">
       <div
         className="absolute inset-0 opacity-15"
-        style={{ backgroundImage: "url(https://images.unsplash.com/photo-1534430480872-3498386e7856?w=1600&q=80)", backgroundSize: "cover", backgroundPosition: "center" }}
+        style={{ backgroundImage: "url(https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Khumbutse%2C_Changtse%2C_Everest%2C_Nuptse_from_Kala_Patthar.jpg/1600px-Khumbutse%2C_Changtse%2C_Everest%2C_Nuptse_from_Kala_Patthar.jpg)", backgroundSize: "cover", backgroundPosition: "center" }}
       />
       <div className="absolute inset-0 bg-aurora" />
       <div className="relative max-w-2xl mx-auto">
