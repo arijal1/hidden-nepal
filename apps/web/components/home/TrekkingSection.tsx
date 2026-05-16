@@ -17,14 +17,16 @@ export function TrekkingSection({ treks }: { treks: Trek[] }) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Left copy */}
           <AnimatedSection>
-            <p className="section-label mb-4">◈ Trekking System</p>
-            <h2 className="text-display-md text-white mb-5">
-              Every trail.<br />Every summit.<br />
-              <em className="italic text-white/35">Perfectly planned.</em>
+            <div className="flex items-center gap-3 mb-4">
+              <span className="text-brand-400 text-xs font-mono tracking-[0.3em] uppercase">Chapter 03 · Trekking</span>
+              <div className="h-px w-12 bg-brand-500/60" />
+            </div>
+            <h2 className="font-display text-white leading-[1.05] tracking-[-0.01em] mb-5" style={{ fontSize: "clamp(2rem, 4.5vw, 3.5rem)" }}>
+              Pick your<br />
+              <span className="italic text-brand-400 font-normal">line.</span>
             </h2>
-            <p className="text-white/40 text-base font-light leading-relaxed mb-8">
-              Elevation profiles, permit info, offline maps, weather, difficulty ratings,
-              emergency contacts — everything a trekker needs, in one place.
+            <p className="text-white/55 text-base font-light leading-relaxed mb-8 max-w-md">
+              Elevation profiles, permit info, real costs, emergency contacts. From easy day hikes to 22-day Himalayan epics.
             </p>
             <div className="flex flex-wrap gap-2 mb-8">
               {FEATURES.map((f) => (
