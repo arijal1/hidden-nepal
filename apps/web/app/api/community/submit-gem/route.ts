@@ -1,6 +1,7 @@
 // app/api/community/submit-gem/route.ts
 
 import { NextRequest, NextResponse } from "next/server";
+import { auth } from "@clerk/nextjs/server";
 import { createAdminClient } from "@/lib/supabase/server";
 import { z } from "zod";
 
@@ -15,6 +16,10 @@ const Schema = z.object({
 });
 
 export async function POST(req: NextRequest) {
+  const { userId } = await auth();
+  if (!userId) {
+    return NextResponse.json({ error: "Sign in to submit a gem" }, { status: 401 });
+  }
   try {
     const body = await req.json();
     const data = Schema.parse(body);
@@ -27,6 +32,7 @@ export async function POST(req: NextRequest) {
         : null;
 
     const { error } = await supabase.from("hidden_gems").insert({
+      submitted_by: userId,
       title: data.title,
       story: data.story,
       region: data.region,
