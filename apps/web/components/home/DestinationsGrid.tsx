@@ -11,16 +11,22 @@ export function DestinationsGrid({ destinations }: { destinations: Destination[]
   return (
     <section className="py-20 px-5">
       <div className="container max-w-[1200px] mx-auto">
-        <AnimatedSection className="flex items-end justify-between gap-4 flex-wrap mb-12">
-          <div>
-            <p className="section-label mb-3">◈ Destinations</p>
-            <h2 className="text-display-md text-white">
-              Places that redefine<br />
-              <em className="italic text-white/40">what travel means</em>
+        <AnimatedSection className="flex items-end justify-between gap-4 flex-wrap mb-14">
+          <div className="max-w-2xl">
+            <div className="flex items-center gap-3 mb-4">
+              <span className="text-brand-400 text-xs font-mono tracking-[0.3em] uppercase">Chapter 01</span>
+              <div className="h-px w-16 bg-brand-500/60" />
+            </div>
+            <h2 className="font-display text-white leading-[1.05] tracking-[-0.01em]" style={{ fontSize: "clamp(2rem, 4.5vw, 3.5rem)" }}>
+              Destinations<br />
+              <span className="italic text-brand-400 font-normal">worth the journey.</span>
             </h2>
+            <p className="text-white/55 text-base font-light mt-5 max-w-md leading-relaxed">
+              Curated places that don't show up on Instagram. Yet.
+            </p>
           </div>
-          <Link href="/destinations" className="btn-ghost text-sm px-5 py-2.5 rounded-full">
-            View all →
+          <Link href="/destinations" className="border border-white/20 hover:border-white/50 hover:bg-white/[0.04] text-white/80 px-6 py-3 rounded-md text-sm tracking-wide transition-all">
+            View all 48 →
           </Link>
         </AnimatedSection>
 
