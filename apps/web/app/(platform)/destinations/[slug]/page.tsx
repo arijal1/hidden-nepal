@@ -282,7 +282,6 @@ export default async function DestinationPage({
                   {(destination as any).wiki_url && (
                     <li>
                       <span className="text-brand-400">◈</span>{" "}
-                    <a
                       <a
                         href={(destination as any).wiki_url}
                         target="_blank"
