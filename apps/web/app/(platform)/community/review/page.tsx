@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils/formatters";
 import { useUser } from "@clerk/nextjs";
 
 const SEASONS = ["Spring (Mar–May)", "Summer/Monsoon (Jun–Aug)", "Autumn (Sep–Nov)", "Winter (Dec–Feb)"];
 
-export default function WriteReviewPage() {
+function WriteReviewInner() {
   const { user, isSignedIn } = useUser();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -210,5 +210,13 @@ function Field({ label, hint, children }: { label: string; hint?: string; childr
       {children}
       {hint && <p className="text-white/20 text-xs mt-1">{hint}</p>}
     </div>
+  );
+}
+
+export default function WriteReviewPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-base-950" />}>
+      <WriteReviewInner />
+    </Suspense>
   );
 }
