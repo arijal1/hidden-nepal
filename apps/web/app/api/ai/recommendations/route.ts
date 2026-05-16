@@ -1,6 +1,7 @@
 // app/api/ai/recommendations/route.ts
 
 import { auth } from "@clerk/nextjs/server";
+import { checkRateLimit, logUsage } from "@/lib/ai/rate-limit";
 import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
 import { z } from "zod";
@@ -21,6 +22,11 @@ export async function POST(req: NextRequest) {
   if (!userId) {
     return new Response(JSON.stringify({ error: "Sign in required" }), { status: 401 });
   }
+  const rl = await checkRateLimit(userId, "recommendations");
+  if (!rl.allowed) {
+    return new Response(JSON.stringify({ error: `Daily limit reached (${rl.used}/${rl.limit}).` }), { status: 429 });
+  }
+  await logUsage(userId, "recommendations");
 
   try {
     const body = await req.json();
