@@ -144,7 +144,7 @@ export function LocationFinder({ onImported }: { onImported?: (slug: string) => 
     <div className="space-y-4">
 
       {/* ── Step 1: Search ───────────────────────── */}
-      <div className="glass-card p-5">
+      <div className="glass-card p-5 relative z-50">
         <h3 className="section-label mb-4">Step 1 — Search Location</h3>
         <div className="relative">
           <div className="flex gap-3">
@@ -171,7 +171,7 @@ export function LocationFinder({ onImported }: { onImported?: (slug: string) => 
 
           {/* Geocode results dropdown */}
           {geocodeResults.length > 0 && (
-            <div className="absolute top-full left-0 right-0 mt-2 z-50 bg-base-950/95 backdrop-blur-2xl border border-white/[0.12] rounded-xl overflow-hidden shadow-2xl">
+            <div className="absolute top-full left-0 right-0 mt-2 z-[100] bg-base-950/95 backdrop-blur-2xl border border-white/[0.12] rounded-xl overflow-hidden shadow-2xl">
               {geocodeResults.map((result) => (
                 <button
                   key={result.id}
