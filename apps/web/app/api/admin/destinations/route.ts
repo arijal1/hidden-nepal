@@ -1,3 +1,4 @@
+import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/server";
 import { z } from "zod";
@@ -24,6 +25,12 @@ const Schema = z.object({
 });
 
 export async function POST(req: NextRequest) {
+  const { sessionClaims } = await auth();
+  const role = (sessionClaims?.metadata as { role?: string })?.role;
+  if (role !== "admin") {
+    return new Response(JSON.stringify({ error: "Forbidden" }), { status: 403 });
+  }
+
   try {
     const body = await req.json();
     const data = Schema.parse(body);

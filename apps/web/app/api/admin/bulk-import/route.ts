@@ -2,6 +2,7 @@
 // POST → start bulk import
 // Returns SSE stream with progress updates
 
+import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/server";
 import { fetchOSMByCategory, OSM_BULK_CATEGORIES } from "@/lib/content/openstreetmap";
@@ -27,6 +28,12 @@ const InputSchema = z.object({
 });
 
 export async function POST(req: NextRequest) {
+  const { sessionClaims } = await auth();
+  const role = (sessionClaims?.metadata as { role?: string })?.role;
+  if (role !== "admin") {
+    return new Response(JSON.stringify({ error: "Forbidden" }), { status: 403 });
+  }
+
   try {
     const body = await req.json();
     const input = InputSchema.parse(body);
