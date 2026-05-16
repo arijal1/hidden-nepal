@@ -20,7 +20,7 @@ export function GemsSection({ gems }: { gems: any[] }) {
         <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
           {displayGems.slice(0, 6).map((gem, i) => (
             <StaggerItem key={gem.id ?? i}>
-              <div className="glass-card p-5 border-gold-500/[0.12] hover:border-gold-500/25 hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
+              <Link href={gem.slug ? `/destinations/${gem.slug}` : "/hidden-gems"} className="block glass-card p-5 border-gold-500/[0.12] hover:border-gold-500/25 hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
                 <div className="flex justify-between items-start mb-3">
                   <span className="gem-badge">Hidden Gem</span>
                   <span className="text-white/15 group-hover:text-white/40 transition-colors">→</span>
@@ -28,7 +28,7 @@ export function GemsSection({ gems }: { gems: any[] }) {
                 <h3 className="text-white font-display font-semibold text-lg mb-1">{gem.title ?? gem.name}</h3>
                 <p className="text-white/45 text-sm leading-relaxed line-clamp-2">{gem.story ?? gem.desc}</p>
                 <p className="text-white/25 text-[10px] font-mono uppercase tracking-wider mt-3">📍 {gem.region}</p>
-              </div>
+              </Link>
             </StaggerItem>
           ))}
         </StaggerContainer>
