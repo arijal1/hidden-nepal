@@ -4,11 +4,7 @@
 import { useState, useEffect } from "react";
 import { useOfflineStorage } from "@/hooks/useOfflineStorage";
 
-export function SaveButton({
-  destination,
-}: {
-  destination: any;
-}) {
+export function SaveButton({ destination }: { destination: any }) {
   const [saved, setSaved] = useState(false);
   const [busy, setBusy] = useState(false);
   const { isDestinationSaved, saveDestination, removeDestination } = useOfflineStorage();
@@ -22,16 +18,10 @@ export function SaveButton({
     try {
       if (saved) {
         const ok = await removeDestination(destination.id);
-        if (ok) {
-          setSaved(false);
-          // removed
-        } else // remove failed
+        if (ok) setSaved(false);
       } else {
         const ok = await saveDestination(destination);
-        if (ok) {
-          setSaved(true);
-          // saved
-        } else // save failed
+        if (ok) setSaved(true);
       }
     } finally {
       setBusy(false);
