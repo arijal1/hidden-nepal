@@ -3,7 +3,6 @@
 
 import { useState, useEffect } from "react";
 import { useOfflineStorage } from "@/hooks/useOfflineStorage";
-import toast from "react-hot-toast";
 
 export function SaveButton({
   destination,
@@ -25,14 +24,14 @@ export function SaveButton({
         const ok = await removeDestination(destination.id);
         if (ok) {
           setSaved(false);
-          toast.success("Removed from saved");
-        } else toast.error("Could not remove");
+          // removed
+        } else // remove failed
       } else {
         const ok = await saveDestination(destination);
         if (ok) {
           setSaved(true);
-          toast.success(`"${destination.name}" saved for offline`);
-        } else toast.error("Could not save");
+          // saved
+        } else // save failed
       }
     } finally {
       setBusy(false);
