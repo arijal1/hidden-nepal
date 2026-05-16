@@ -296,6 +296,14 @@ export function Navbar() {
 
   return (
     <>
+      {/* Prayer flag accent strip */}
+      <div className="fixed top-0 left-0 right-0 z-[60] flex h-[3px] pointer-events-none">
+        <div className="flex-1 bg-[#2a5d8f]" />
+        <div className="flex-1 bg-[#f7f1e5]" />
+        <div className="flex-1 bg-[#c84630]" />
+        <div className="flex-1 bg-[#4a7c4e]" />
+        <div className="flex-1 bg-[#e9a829]" />
+      </div>
       <motion.header
         ref={navRef}
         className={cn(
@@ -304,7 +312,7 @@ export function Navbar() {
             ? "bg-base-950/92 backdrop-blur-2xl border-b border-white/[0.06]"
             : "bg-transparent"
         )}
-        style={{ height: "var(--nav-height)" }}
+        style={{ height: "var(--nav-height)", top: 3 }}
       >
         <div className="container max-w-[1440px] mx-auto px-5 h-full flex items-center justify-between gap-6">
 
