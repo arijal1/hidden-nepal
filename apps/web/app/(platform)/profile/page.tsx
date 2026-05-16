@@ -40,7 +40,7 @@ export default async function ProfilePage() {
                 <Stat label="Saved" value={profile?.saved_destinations?.length ?? 0} />
               </div>
             </div>
-            <Link href="/profile/edit" className="btn-ghost text-sm px-5 py-2.5 rounded-xl">
+            <Link href="/user-profile" className="btn-ghost text-sm px-5 py-2.5 rounded-xl">
               Edit Profile
             </Link>
           </AnimatedSection>
