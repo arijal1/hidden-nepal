@@ -42,6 +42,7 @@ export default async function DestinationPage({
 }) {
   const destination = await getDestinationBySlug((await params).slug);
   if (!destination) notFound();
+  console.log("[DEBUG dest]", JSON.stringify(destination, null, 2).slice(0, 2000));
 
   const inSeason = isBestSeason((destination as any).best_season ?? destination.bestSeason);
 
