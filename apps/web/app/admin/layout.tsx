@@ -12,6 +12,7 @@ const NAV_ITEMS = [
   { label: "Dashboard",      href: "/admin/dashboard",    icon: "◈" },
   { label: "Import Location",href: "/admin/locations",    icon: "🔍" },
   { label: "Bulk Import",    href: "/admin/bulk-import",  icon: "⚡" },
+  { label: "Trek Import",    href: "/admin/trek-import",  icon: "🥾" },
   { label: "Destinations",   href: "/admin/destinations", icon: "📍" },
   { label: "Treks",          href: "/admin/treks",        icon: "🥾" },
   { label: "Hidden Gems",    href: "/admin/gems",         icon: "✦" },
