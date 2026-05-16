@@ -1,5 +1,6 @@
 // app/api/ai/itinerary/route.ts
 
+import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
 import { z } from "zod";
@@ -152,6 +153,11 @@ IMPORTANT INSTRUCTIONS:
 // ─── Route Handler ────────────────────────────────────
 
 export async function POST(req: NextRequest) {
+  const { userId } = await auth();
+  if (!userId) {
+    return new Response(JSON.stringify({ error: "Sign in required" }), { status: 401 });
+  }
+
   try {
     const body = await req.json();
     const input = InputSchema.parse(body);

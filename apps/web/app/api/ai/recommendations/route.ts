@@ -1,5 +1,6 @@
 // app/api/ai/recommendations/route.ts
 
+import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
 import { z } from "zod";
@@ -16,6 +17,11 @@ const Schema = z.object({
 });
 
 export async function POST(req: NextRequest) {
+  const { userId } = await auth();
+  if (!userId) {
+    return new Response(JSON.stringify({ error: "Sign in required" }), { status: 401 });
+  }
+
   try {
     const body = await req.json();
     const { currentDestination, interests, travelStyle, limit } = Schema.parse(body);
