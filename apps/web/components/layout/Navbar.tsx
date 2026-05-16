@@ -67,7 +67,7 @@ function SearchBar({ onClose }: { onClose: () => void }) {
       transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
       className="absolute top-full left-0 right-0 mt-2 mx-4 z-50"
     >
-      <div className="glass-card p-4 rounded-2xl shadow-glass">
+      <div className="bg-base-950/95 backdrop-blur-2xl border border-white/[0.12] p-4 rounded-2xl shadow-2xl">
         <div className="flex items-center gap-3 mb-4">
           <span className="text-white/30 text-lg">🔍</span>
           <input
@@ -119,7 +119,7 @@ function Submenu({ items }: { items: SubItem[] }) {
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: 8, scale: 0.97 }}
       transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-      className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-72 glass-card rounded-2xl p-2 shadow-glass"
+      className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-72 bg-base-950/95 backdrop-blur-2xl border border-white/[0.12] rounded-2xl p-2 shadow-2xl"
     >
       {items.map((item) => (
         <Link
