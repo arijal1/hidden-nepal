@@ -66,10 +66,17 @@ export async function POST(req: NextRequest) {
 
     let enriched: Record<string, unknown>;
     try {
-      enriched = JSON.parse(raw);
-    } catch {
+      let jsonText = raw.trim().replace(/^```json\s*/gm, "").replace(/```\s*$/gm, "");
+      const firstBrace = jsonText.indexOf("{");
+      const lastBrace = jsonText.lastIndexOf("}");
+      if (firstBrace !== -1 && lastBrace !== -1) {
+        jsonText = jsonText.slice(firstBrace, lastBrace + 1);
+      }
+      enriched = JSON.parse(jsonText);
+    } catch (e) {
+      console.error("[enrich parse]", e, "raw:", raw.slice(0, 300));
       return NextResponse.json(
-        { error: "Failed to parse AI response" },
+        { error: "Failed to parse AI response", raw: raw.slice(0, 300) },
         { status: 500 }
       );
     }
