@@ -15,7 +15,7 @@ export async function NearbyAttractions({
   lng,
   excludeId,
 }: NearbyAttractionsProps) {
-  const nearby = await getNearbyDestinations(lat, lng, 100, 6);
+  const nearby = await getNearbyDestinations(lat, lng, 30, 6);
   const filtered = nearby.filter((d) => d.id !== excludeId).slice(0, 5);
 
   if (filtered.length === 0) return null;
