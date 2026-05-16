@@ -201,12 +201,17 @@ export function HomeCTA() {
       />
       <div className="absolute inset-0 bg-aurora" />
       <div className="relative max-w-2xl mx-auto">
-        <h2 className="text-display-xl text-white mb-6">
+        <div className="inline-flex items-center gap-3 mb-8">
+          <div className="h-px w-10 bg-brand-500/60" />
+          <span className="text-brand-400 text-[11px] font-mono tracking-[0.35em] uppercase">The Mountains Are Calling</span>
+          <div className="h-px w-10 bg-brand-500/60" />
+        </div>
+        <h2 className="font-display text-white leading-[0.98] tracking-[-0.02em] mb-6" style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}>
           Nepal is waiting.<br />
-          <em className="italic text-brand-400">Are you?</em>
+          <span className="italic text-brand-400 font-normal">Are you?</span>
         </h2>
-        <p className="text-white/40 text-base font-light mb-10">
-          Join 50,000+ travelers who discovered Nepal's hidden side with us.
+        <p className="text-white/55 text-base font-light mb-10 max-w-md mx-auto leading-relaxed">
+          Pack lightly. Walk slowly. The best Nepal is the one nobody told you about.
         </p>
         <div className="flex gap-3 justify-center flex-wrap">
           <Link href="/plan" className="btn-primary px-10 py-4 rounded-xl text-base flex items-center gap-2">
