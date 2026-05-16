@@ -168,20 +168,22 @@ export async function getFeaturedDestinations(limit = 6): Promise<Destination[]>
 
 export async function getHiddenGems(limit = 9) {
   const supabase = await createClient();
-
   const { data, error } = await supabase
-    .from("hidden_gems")
-    .select(`
-      *,
-      destinations(slug, name, province_id)
-    `)
+    .from("destinations")
+    .select("id, slug, name, tagline, description, category, province, cover_image_url, avg_rating, coordinates")
+    .eq("is_hidden_gem", true)
     .eq("is_published", true)
-    .eq("is_verified", true)
-    .order("upvotes", { ascending: false })
+    .order("avg_rating", { ascending: false })
     .limit(limit);
-
-  if (error) return [];
-  return data ?? [];
+  if (error) { console.error("[getHiddenGems]", error); return []; }
+  return (data ?? []).map((d: any) => ({
+    ...d,
+    coordinates: parseCoords(d.coordinates),
+    coverImageUrl: d.cover_image_url,
+    title: d.name,
+    story: d.tagline ?? (d.description?.slice(0, 200) ?? ""),
+    region: d.province,
+  }));
 }
 
 export async function getAllDestinationSlugs(): Promise<string[]> {
