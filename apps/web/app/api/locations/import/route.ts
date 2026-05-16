@@ -16,20 +16,20 @@ const Schema = z.object({
   province: z.string(),
 
   // AI-enriched fields
-  tagline: z.string().optional(),
-  description: z.string().optional(),
+  tagline: z.string().nullish(),
+  description: z.string().nullish(),
   category: z.string().default("cultural"),
   isHiddenGem: z.boolean().default(false),
   highlights: z.array(z.string()).default([]),
   bestSeason: z.array(z.string()).default([]),
   tags: z.array(z.string()).default([]),
   warnings: z.array(z.string()).default([]),
-  elevationM: z.number().optional().nullable(),
-  seoTitle: z.string().optional(),
-  seoDescription: z.string().optional(),
+  elevationM: z.number().nullish(),
+  seoTitle: z.string().nullish(),
+  seoDescription: z.string().nullish(),
 
   // Optional overrides
-  coverImageUrl: z.string().optional(),
+  coverImageUrl: z.string().nullish(),
   isPublished: z.boolean().default(false),
   isFeatured: z.boolean().default(false),
 });
