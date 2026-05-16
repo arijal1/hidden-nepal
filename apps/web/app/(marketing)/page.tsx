@@ -8,7 +8,7 @@ import { GemsSection } from "@/components/home/GemsSection";
 import { TrekkingSection } from "@/components/home/TrekkingSection";
 import {
   PlannerTeaser,
-  FestivalCalendar,
+  LivingCulture,
   SafetyBanner,
   HomeCTA,
 } from "@/components/home/PlannerTeaser";
@@ -34,7 +34,7 @@ export default async function HomePage() {
         <GemsSection gems={[]} />
         <TrekkingSection treks={[]} />
         <PlannerTeaser />
-        <FestivalCalendar />
+        <LivingCulture />
         <Suspense fallback={null}>
           <SafetyBanner />
         </Suspense>
