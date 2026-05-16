@@ -3,6 +3,21 @@
 import { createClient } from "@/lib/supabase/server";
 import type { Destination, SearchFilters, PaginatedResponse } from "@/types";
 
+
+function snakeToCamel(obj: any): any {
+  if (Array.isArray(obj)) return obj.map(snakeToCamel);
+  if (obj === null || typeof obj !== "object") return obj;
+  if (obj instanceof Date) return obj;
+  const result: any = {};
+  for (const key in obj) {
+    const camelKey = key.replace(/_([a-z])/g, (_, c) => c.toUpperCase());
+    result[camelKey] = snakeToCamel(obj[key]);
+    // Keep snake_case too for backwards compat
+    if (key !== camelKey) result[key] = result[camelKey];
+  }
+  return result;
+}
+
 function parseCoords(geo: any): { lat: number; lng: number } | null {
   if (!geo) return null;
   // GeoJSON object format
@@ -98,14 +113,15 @@ export async function getDestinationBySlug(
     .single();
 
   if (error || !data) return null;
-  const parsed: any = { ...data, coordinates: parseCoords((data as any).coordinates) };
+  const transformed = snakeToCamel(data);
+  transformed.coordinates = parseCoords((data as any).coordinates);
   if ((data as any).hidden_gems) {
-    parsed.hidden_gems = (data as any).hidden_gems.map((g: any) => ({
-      ...g,
+    transformed.hiddenGems = (data as any).hidden_gems.map((g: any) => ({
+      ...snakeToCamel(g),
       coordinates: parseCoords(g.coordinates),
     }));
   }
-  return parsed as Destination;
+  return transformed as Destination;
 }
 
 export async function getNearbyDestinations(
