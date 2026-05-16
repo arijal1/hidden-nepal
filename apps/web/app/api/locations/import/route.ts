@@ -6,7 +6,7 @@ import { createAdminClient } from "@/lib/supabase/server";
 import { slugify } from "@/lib/utils/formatters";
 import { z } from "zod";
 
-export const runtime = "edge";
+export const runtime = "nodejs";
 
 const Schema = z.object({
   // Core location
