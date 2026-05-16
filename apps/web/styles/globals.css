@@ -7,11 +7,11 @@
 /* ─── CSS Design Tokens ─────────────────────────────── */
 :root {
   /* Brand */
-  --color-brand-50: #f0f9f0;
-  --color-brand-400: #52b788;
-  --color-brand-500: #2d6a4f;
-  --color-brand-600: #1b4332;
-  --color-brand-950: #081c15;
+  --color-brand-50: #fef3eb;
+  --color-brand-400: #e89968;
+  --color-brand-500: #d97a3a;
+  --color-brand-600: #b8501c;
+  --color-brand-950: #2d1407;
 
   /* Gold */
   --color-gold-400: #f4a261;
@@ -21,8 +21,8 @@
   --color-sky-300: #90e0ef;
 
   /* Base / Background */
-  --color-bg: #0a0f0a;
-  --color-bg-subtle: #0f1410;
+  --color-bg: #0f1419;
+  --color-bg-subtle: #161b22;
   --color-bg-muted: rgba(255,255,255,0.03);
 
   /* Text */
@@ -148,7 +148,7 @@ h5, h6 {
 
   /* Gradient text */
   .text-gradient-brand {
-    background: linear-gradient(135deg, #52b788, #2d6a4f);
+    background: linear-gradient(135deg, #e89968, #b8501c);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -201,7 +201,7 @@ h5, h6 {
 
   /* Button variants */
   .btn-primary {
-    background: linear-gradient(135deg, #2d6a4f, #52b788);
+    background: linear-gradient(135deg, #b8501c, #e89968);
     color: white;
     font-weight: 600;
     border: none;

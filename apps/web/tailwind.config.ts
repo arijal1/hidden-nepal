@@ -112,7 +112,7 @@ const config: Config = {
         "hero-gradient": "linear-gradient(to bottom, rgba(10,15,10,0.2) 0%, rgba(10,15,10,0.1) 40%, rgba(10,15,10,0.75) 80%, rgba(10,15,10,1) 100%)",
         "card-gradient": "linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 50%, transparent 100%)",
         "glass-gradient": "linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03))",
-        "brand-gradient": "linear-gradient(135deg, #2d6a4f, #52b788)",
+        "brand-gradient": "linear-gradient(135deg, #b8501c, #e89968)",
         "gold-gradient": "linear-gradient(135deg, #e76f51, #f4a261)",
         "aurora": "radial-gradient(ellipse at 50% 50%, rgba(45,106,79,0.15), transparent 70%)",
       },
