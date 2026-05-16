@@ -6,9 +6,9 @@ import { StatsBanner } from "@/components/home/StatsBanner";
 import { DestinationsGrid } from "@/components/home/DestinationsGrid";
 import { GemsSection } from "@/components/home/GemsSection";
 import { TrekkingSection } from "@/components/home/TrekkingSection";
+import { LivingCulture } from "@/components/home/LivingCulture";
 import {
   PlannerTeaser,
-  LivingCulture,
   SafetyBanner,
   HomeCTA,
 } from "@/components/home/PlannerTeaser";
