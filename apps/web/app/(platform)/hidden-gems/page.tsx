@@ -81,7 +81,7 @@ export default async function HiddenGemsPage() {
 
 function GemCard({ gem, index }: { gem: any; index: number }) {
   return (
-    <div className="group glass-card p-5 border-gold-500/[0.1] hover:border-gold-500/25 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+    <Link href={`/destinations/${gem.slug}`} className="block group glass-card p-5 border-gold-500/[0.1] hover:border-gold-500/25 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
       <div className="flex justify-between items-start mb-4">
         <span className="gem-badge">✦ Verified Gem</span>
         {gem.upvotes > 0 && (
@@ -92,16 +92,8 @@ function GemCard({ gem, index }: { gem: any; index: number }) {
       <p className="text-white/45 text-sm leading-relaxed line-clamp-3">{gem.story}</p>
       <div className="flex items-center justify-between mt-5 pt-4 border-t border-white/[0.06]">
         <span className="text-white/25 text-xs font-mono uppercase tracking-wider">📍 {gem.region}</span>
-        {gem.destinations && (
-          <Link
-            href={`/destinations/${gem.destinations.slug}`}
-            className="text-brand-400 text-xs hover:text-brand-300 transition-colors"
-            onClick={(e) => e.stopPropagation()}
-          >
-            View area →
-          </Link>
-        )}
+        <span className="text-brand-400 text-xs">View →</span>
       </div>
-    </div>
+    </Link>
   );
 }
