@@ -7,14 +7,18 @@ export function GemsSection({ gems }: { gems: any[] }) {
   return (
     <section className="py-20 px-5 bg-gradient-to-b from-transparent via-gold-500/[0.03] to-transparent">
       <div className="container max-w-[1200px] mx-auto">
-        <AnimatedSection className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 border border-gold-400/20 bg-gold-400/[0.06] rounded-full px-4 py-2 mb-5">
-            <span className="text-gold-400 text-xs font-mono tracking-widest">✦ HIDDEN GEMS ENGINE</span>
+        <AnimatedSection className="text-center mb-14 max-w-2xl mx-auto">
+          <div className="inline-flex items-center gap-3 mb-5">
+            <div className="h-px w-10 bg-gold-400/60" />
+            <span className="text-gold-400 text-xs font-mono tracking-[0.3em] uppercase">Chapter 02 · Hidden Gems</span>
+            <div className="h-px w-10 bg-gold-400/60" />
           </div>
-          <h2 className="text-display-md text-white mb-4">
-            Places even locals<br /><em className="italic text-gold-400">keep to themselves</em>
+          <h2 className="font-display text-white leading-[1.05] tracking-[-0.01em]" style={{ fontSize: "clamp(2rem, 4.5vw, 3.5rem)" }}>
+            The Nepal locals<br /><span className="italic text-gold-400 font-normal">keep to themselves.</span>
           </h2>
-          <p className="text-white/35 text-sm max-w-sm mx-auto">Community-sourced discoveries, verified by local experts.</p>
+          <p className="text-white/50 text-base font-light mt-5 max-w-md mx-auto leading-relaxed">
+            Places discovered by travelers, verified by locals. No tours. No crowds.
+          </p>
         </AnimatedSection>
 
         <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
