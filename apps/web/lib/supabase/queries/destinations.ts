@@ -5,8 +5,26 @@ import type { Destination, SearchFilters, PaginatedResponse } from "@/types";
 
 function parseCoords(geo: any): { lat: number; lng: number } | null {
   if (!geo) return null;
-  if (geo.coordinates && Array.isArray(geo.coordinates)) {
+  // GeoJSON object format
+  if (typeof geo === "object" && geo.coordinates && Array.isArray(geo.coordinates)) {
     return { lng: geo.coordinates[0], lat: geo.coordinates[1] };
+  }
+  // WKB hex string format from PostGIS (e.g. "0101000020E6100000...")
+  if (typeof geo === "string" && geo.length >= 50) {
+    try {
+      const hex = geo.slice(18); // skip header
+      const bytes = new Uint8Array(hex.length / 2);
+      for (let i = 0; i < bytes.length; i++) {
+        bytes[i] = parseInt(hex.substr(i * 2, 2), 16);
+      }
+      const view = new DataView(bytes.buffer);
+      return {
+        lng: view.getFloat64(0, true),
+        lat: view.getFloat64(8, true),
+      };
+    } catch {
+      return null;
+    }
   }
   return null;
 }
