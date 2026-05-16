@@ -270,7 +270,7 @@ export default async function DestinationPage({
                     <span className="text-brand-400">◈</span>{" "}
                     <a
                     
-                      href={`https://www.openstreetmap.org/?mlat=${destination.coordinates.lat}&mlon=${destination.coordinates.lng}&zoom=14`}
+                      href={`https://www.openstreetmap.org/?mlat=${destination.coordinates?.lat ?? 0}&mlon=${destination.coordinates?.lng ?? 0}&zoom=14`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="hover:text-white/80 transition-colors"
@@ -322,7 +322,7 @@ export default async function DestinationPage({
                   <div className="flex gap-3">
                     <dt className="text-white/40 w-24 shrink-0">Coordinates</dt>
                     <dd className="text-white/60 font-mono text-xs">
-                      {destination.coordinates.lat.toFixed(4)}, {destination.coordinates.lng.toFixed(4)}
+                      {(destination.coordinates?.lat ?? 0).toFixed(4)}, {(destination.coordinates?.lng ?? 0).toFixed(4)}
                     </dd>
                   </div>
                 </dl>
