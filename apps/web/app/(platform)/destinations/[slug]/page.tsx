@@ -189,7 +189,7 @@ export default async function DestinationPage({
               {/* Save / Plan CTA */}
               <AnimatedSection>
                 <div className="glass-card p-6 space-y-4">
-                  <SaveButton destinationId={destination.id} destinationName={destination.name} />
+                  <SaveButton destination={destination} />
                   <a
                     href={`/plan?destination=${destination.slug}`}
                     className="btn-ghost flex items-center justify-center gap-2 w-full text-sm"

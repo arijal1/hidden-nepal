@@ -1,35 +1,51 @@
 // components/destinations/SaveButton.tsx
-
 "use client";
 
 import { useState, useEffect } from "react";
 import { useOfflineStorage } from "@/hooks/useOfflineStorage";
+import toast from "react-hot-toast";
 
 export function SaveButton({
-  destinationId,
-  destinationName,
+  destination,
 }: {
-  destinationId: string;
-  destinationName: string;
+  destination: any;
 }) {
   const [saved, setSaved] = useState(false);
-  const { isDestinationSaved } = useOfflineStorage();
+  const [busy, setBusy] = useState(false);
+  const { isDestinationSaved, saveDestination, removeDestination } = useOfflineStorage();
 
   useEffect(() => {
-    isDestinationSaved(destinationId).then(setSaved);
-  }, [destinationId, isDestinationSaved]);
+    isDestinationSaved(destination.id).then(setSaved);
+  }, [destination.id, isDestinationSaved]);
 
-  const handleSave = () => {
-    setSaved((prev) => !prev);
-    // In production: call saveDestination / removeDestination
+  const handleSave = async () => {
+    setBusy(true);
+    try {
+      if (saved) {
+        const ok = await removeDestination(destination.id);
+        if (ok) {
+          setSaved(false);
+          toast.success("Removed from saved");
+        } else toast.error("Could not remove");
+      } else {
+        const ok = await saveDestination(destination);
+        if (ok) {
+          setSaved(true);
+          toast.success(`"${destination.name}" saved for offline`);
+        } else toast.error("Could not save");
+      }
+    } finally {
+      setBusy(false);
+    }
   };
 
   return (
     <button
       onClick={handleSave}
+      disabled={busy}
       className={`
         w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl
-        border font-medium text-sm transition-all duration-200
+        border font-medium text-sm transition-all duration-200 disabled:opacity-50
         ${saved
           ? "bg-brand-500/15 border-brand-500/40 text-brand-400"
           : "bg-white/[0.04] border-white/[0.1] text-white/60 hover:bg-white/[0.07] hover:text-white/80"
@@ -37,7 +53,7 @@ export function SaveButton({
       `}
     >
       <span className="text-base">{saved ? "♥" : "♡"}</span>
-      {saved ? "Saved to offline" : "Save for offline"}
+      {saved ? "Saved for offline" : "Save for offline"}
     </button>
   );
 }
