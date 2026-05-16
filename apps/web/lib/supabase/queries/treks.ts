@@ -3,6 +3,21 @@
 import { createClient } from "@/lib/supabase/server";
 import type { Trek, TrekDifficulty } from "@/types";
 
+function snakeToCamel(obj: any): any {
+  if (Array.isArray(obj)) return obj.map(snakeToCamel);
+  if (obj === null || typeof obj !== "object") return obj;
+  if (obj instanceof Date) return obj;
+  const result: any = {};
+  for (const key in obj) {
+    const camelKey = key.replace(/_([a-z])/g, (_, c) => c.toUpperCase());
+    result[camelKey] = snakeToCamel(obj[key]);
+    if (key !== camelKey) result[key] = result[camelKey];
+  }
+  return result;
+}
+
+
+
 export async function getTreks(
   difficulty?: TrekDifficulty,
   limit = 12
@@ -20,7 +35,7 @@ export async function getTreks(
 
   const { data, error } = await query;
   if (error) return [];
-  return (data ?? []) as unknown as Trek[];
+  return (data ?? []).map(snakeToCamel) as unknown as Trek[];
 }
 
 export async function getAllTrekSlugs(): Promise<string[]> {
@@ -51,5 +66,5 @@ export async function getTrekBySlug(slug: string) {
     .eq("is_published", true)
     .single();
   if (error || !data) return null;
-  return data as any;
+  return snakeToCamel(data) as any;
 }
