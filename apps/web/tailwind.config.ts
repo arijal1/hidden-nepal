@@ -16,19 +16,34 @@ const config: Config = {
     },
     extend: {
       colors: {
-        // Brand — Nepal green
+        // Brand — Saffron orange (Nepal warmth)
         brand: {
-          50: "#f0f9f0",
-          100: "#dcf0dc",
-          200: "#bce0bc",
-          300: "#8dc98d",
-          400: "#52b788",
-          500: "#2d6a4f",
-          600: "#1b4332",
-          700: "#163729",
-          800: "#122d22",
-          900: "#0f261e",
-          950: "#081c15",
+          50: "#fef3eb",
+          100: "#fce0c8",
+          200: "#f8c195",
+          300: "#f0a065",
+          400: "#e89968",
+          500: "#d97a3a",
+          600: "#b8501c",
+          700: "#963f12",
+          800: "#73310f",
+          900: "#54240b",
+          950: "#2d1407",
+        },
+        // Navy — Deep blue (from logo)
+        navy: {
+          400: "#4a6fa5",
+          500: "#1e2942",
+          600: "#181f33",
+          700: "#14172a",
+          900: "#0a0e1a",
+        },
+        // Prayer flag accents
+        flag: {
+          red: "#c84630",
+          blue: "#2a5d8f",
+          green: "#4a7c4e",
+          yellow: "#e9a829",
         },
         // Gold — Himalayan warmth
         gold: {

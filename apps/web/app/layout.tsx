@@ -145,7 +145,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="bg-base-950 text-white antialiased">
+      <body className="text-warm-cream antialiased" style={{ backgroundColor: "#0f1419" }}>
         <ClerkProvider>
           {children}
           <Toaster
