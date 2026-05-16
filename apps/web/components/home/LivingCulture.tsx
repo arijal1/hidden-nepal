@@ -141,6 +141,7 @@ export function LivingCulture() {
                 <p className="text-white/35 text-[10px] font-mono uppercase tracking-[0.25em] mb-2">Today in Nepal</p>
                 <p className="text-white font-display text-2xl leading-tight">{bs.monthEn} {bs.year} BS</p>
                 <p className="text-white/45 text-sm mt-1">{bs.dayName} · {bs.monthNp}</p>
+                <p className="text-white/30 text-xs font-mono mt-2">{today.toLocaleDateString("en-US", { weekday: "short", month: "long", day: "numeric", year: "numeric" })}</p>
               </div>
               {current ? (
                 <div>
