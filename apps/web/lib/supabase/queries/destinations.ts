@@ -80,7 +80,14 @@ export async function getDestinationBySlug(
     .single();
 
   if (error || !data) return null;
-  return data as unknown as Destination;
+  const parsed: any = { ...data, coordinates: parseCoords((data as any).coordinates) };
+  if ((data as any).hidden_gems) {
+    parsed.hidden_gems = (data as any).hidden_gems.map((g: any) => ({
+      ...g,
+      coordinates: parseCoords(g.coordinates),
+    }));
+  }
+  return parsed as Destination;
 }
 
 export async function getNearbyDestinations(
