@@ -171,7 +171,7 @@ export function LocationFinder({ onImported }: { onImported?: (slug: string) => 
 
           {/* Geocode results dropdown */}
           {geocodeResults.length > 0 && (
-            <div className="absolute top-full left-0 right-0 mt-2 z-50 glass-card rounded-xl overflow-hidden shadow-glass">
+            <div className="absolute top-full left-0 right-0 mt-2 z-50 bg-base-950/95 backdrop-blur-2xl border border-white/[0.12] rounded-xl overflow-hidden shadow-2xl">
               {geocodeResults.map((result) => (
                 <button
                   key={result.id}
