@@ -38,6 +38,7 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const data = Schema.parse(body);
+    data.province = data.province.replace(/\s+Province$/i, "").trim();
 
     const supabase = createAdminClient();
 
