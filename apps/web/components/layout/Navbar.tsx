@@ -309,13 +309,8 @@ export function Navbar() {
         <div className="container max-w-[1440px] mx-auto px-5 h-full flex items-center justify-between gap-6">
 
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 shrink-0">
-            <div className="w-7 h-7 rounded-[8px] bg-brand-gradient flex items-center justify-center text-white text-sm font-bold">
-              ◈
-            </div>
-            <span className="text-white text-lg font-display font-semibold tracking-tight">
-              Hidden Nepal
-            </span>
+          <Link href="/" className="flex items-center gap-2 shrink-0">
+            <img src="/logo.png" alt="Hidden Nepal" className="h-12 w-auto object-contain" />
           </Link>
 
           {/* Desktop Nav */}
