@@ -83,7 +83,7 @@ export async function getDestinations(
   }
 
   return {
-    data: (data ?? []) as unknown as Destination[],
+    data: (data ?? []).map((d: any) => ({ ...snakeToCamel(d), coordinates: parseCoords(d.coordinates) })) as unknown as Destination[],
     total: count ?? 0,
     page,
     pageSize,
