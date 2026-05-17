@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getAdventure } from "@/lib/supabase/queries/adventures";
 import { InquiryForm } from "@/components/adventures/InquiryForm";
+import { DestinationMap } from "@/components/destinations/DestinationMap";
 
 export const revalidate = 1800;
 
@@ -69,6 +70,15 @@ export default async function AdventureDetailPage({ params }: { params: Promise<
             )}
             {adv.description && (
               <div className="text-white/70 text-base leading-relaxed whitespace-pre-line">{adv.description}</div>
+            )}
+
+            {adv.coordinates && (
+              <section>
+                <h2 className="text-brand-400 text-xs font-mono uppercase tracking-[0.3em] mb-4">Where it happens</h2>
+                <div className="rounded-2xl overflow-hidden border border-white/[0.08] h-[360px]">
+                  <DestinationMap coordinates={adv.coordinates} name={adv.name} />
+                </div>
+              </section>
             )}
 
             {adv.highlights.length > 0 && (
