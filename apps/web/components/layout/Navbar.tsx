@@ -379,6 +379,14 @@ export function Navbar() {
               <span className="text-xs font-mono hidden md:block">⌘K</span>
             </button>
 
+            {/* Saved (signed-in only) */}
+            <SignedIn>
+              <Link href="/saved" className="hidden md:flex items-center gap-1.5 text-white/60 hover:text-white text-sm px-3 py-2 transition-colors">
+                <span className="text-base">♡</span>
+                <span>Saved</span>
+              </Link>
+            </SignedIn>
+
             {/* Auth */}
             <SignedIn>
               <UserButton
