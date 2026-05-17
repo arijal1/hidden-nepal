@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { createAdminClient } from "@/lib/supabase/server";
+import { DeleteButton } from "@/components/admin/DeleteButton";
 
 async function getDestinations(page = 1, filter?: string) {
   const supabase = createAdminClient();
@@ -102,6 +103,7 @@ export default async function AdminDestinationsPage({
                   <div className="flex gap-3">
                     <Link href={`/destinations/${dest.slug}`} target="_blank" className="text-white/25 text-xs hover:text-white/60">View</Link>
                     <Link href={`/admin/destinations/${dest.id}/edit`} className="text-brand-400 text-xs hover:text-brand-300">Edit</Link>
+                    <DeleteButton id={dest.id} name={dest.name} resource="destinations" />
                   </div>
                 </td>
               </tr>
