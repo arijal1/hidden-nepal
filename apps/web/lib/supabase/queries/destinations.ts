@@ -66,7 +66,7 @@ export async function getDestinations(
     .range(offset, offset + pageSize - 1);
 
   if (filters.category) query = query.eq("category", filters.category);
-  if (filters.province) query = query.eq("province_id", filters.province);
+  if (filters.province) query = query.eq("province", filters.province);
   if (filters.isHiddenGem) query = query.eq("is_hidden_gem", true);
   if (filters.query) {
     query = query.textSearch("fts", filters.query, {
