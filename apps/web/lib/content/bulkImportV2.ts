@@ -3,6 +3,7 @@
 
 import { fetchOSMByCategory, type OSMLocation } from "./openstreetmap";
 import { getWikipediaArticle, getWikimediaImages, getNepalCategoryMembers, nepalWikiCategoriesFor } from "./wikipedia";
+import { searchFlickrPhotos } from "./flickr";
 import { createAdminClient } from "@/lib/supabase/server";
 import { slugify } from "@/lib/utils/formatters";
 import { inferProvince } from "@/lib/mapbox/geocoding";
@@ -140,22 +141,38 @@ export async function* discoverCandidates(options: {
       const slug = slugify(osm.name);
       const alreadyExists = existingSlugs.has(slug) || existingNames.has(osm.name.toLowerCase());
 
-      // Check Wikipedia (cheap)
+      // Multi-source image fetching: Wikipedia → Wikimedia Commons → Flickr
       const wikiTitle = osm.wikipedia ? osm.wikipedia.replace("en:", "") : osm.name;
       let article = null;
       let imageUrl: string | undefined;
       let galleryUrls: string[] = [];
+
+      // 1. Wikipedia article thumbnail
       try {
         article = await getWikipediaArticle(wikiTitle);
         if (article?.thumbnail?.source) imageUrl = article.thumbnail.source;
       } catch {}
 
-      // Try Wikimedia images
+      // 2. Wikimedia Commons gallery (high res)
       try {
-        const wiki = await getWikimediaImages(osm.name, 4);
+        const wiki = await getWikimediaImages(osm.name, 6);
         if (!imageUrl && wiki[0]) imageUrl = wiki[0];
-        galleryUrls = wiki.filter(u => u !== imageUrl).slice(0, 4);
+        galleryUrls = wiki.filter(u => u !== imageUrl).slice(0, 5);
       } catch {}
+
+      // 3. Flickr fallback if still no images (CC-licensed)
+      if (!imageUrl || galleryUrls.length < 2) {
+        try {
+          const flickr = await searchFlickrPhotos(`${osm.name} Nepal`, 4);
+          const flickrUrls = flickr.map((p) => p.url);
+          if (!imageUrl && flickrUrls[0]) imageUrl = flickrUrls[0];
+          for (const u of flickrUrls) {
+            if (u === imageUrl) continue;
+            if (galleryUrls.includes(u)) continue;
+            if (galleryUrls.length < 5) galleryUrls.push(u);
+          }
+        } catch {}
+      }
 
       const totalImages = (imageUrl ? 1 : 0) + galleryUrls.length;
       const { score, reasons } = scoreCandidate(osm, !!article, totalImages);
