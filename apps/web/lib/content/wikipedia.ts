@@ -335,7 +335,8 @@ export function nepalWikiCategoriesFor(category: string): string[] {
     case "temple": return ["Hindu_temples_in_Nepal", "Buddhist_temples_in_Nepal"];
     case "peak": return ["Mountains_of_Nepal", "Eight-thousanders"];
     case "waterfall": return ["Waterfalls_of_Nepal"];
-    case "park": return ["National_parks_of_Nepal", "Wildlife_sanctuaries_of_Nepal"];
+    case "park":
+    case "nationalpark": return ["National_parks_of_Nepal", "Wildlife_sanctuaries_of_Nepal"];
     case "city": return ["Cities_in_Nepal", "Populated_places_in_Nepal"];
     case "heritage": return ["World_Heritage_Sites_in_Nepal", "Heritage_sites_in_Nepal"];
     case "viewpoint": return ["Hill_stations_in_Nepal"];

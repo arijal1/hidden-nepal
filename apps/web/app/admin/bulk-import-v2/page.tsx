@@ -28,9 +28,8 @@ const CATEGORIES = [
   { value: "viewpoint", label: "Viewpoints" },
   { value: "peak", label: "Peaks" },
   { value: "waterfall", label: "Waterfalls" },
-  { value: "park", label: "National Parks" },
+  { value: "nationalpark", label: "National Parks" },
   { value: "village", label: "Villages" },
-  { value: "city", label: "Cities" },
   { value: "heritage", label: "Heritage Sites" },
 ];
 
