@@ -46,7 +46,7 @@ export default async function HomePage() {
       <main className="bg-base-950">
         <HeroSection destinationCount={destinationCount} trekCount={trekCount} />
         <StatsBanner />
-        <DestinationsGrid destinations={destinations} />
+        <DestinationsGrid destinations={destinations} totalCount={destinationCount} />
         <GemsSection gems={gems} />
         <TrekkingSection treks={treks} />
         <AdventuresSection adventures={adventures} />

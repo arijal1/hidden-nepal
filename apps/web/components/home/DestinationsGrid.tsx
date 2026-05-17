@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/shared/AnimatedSection";
 import type { Destination } from "@/types";
 
-export function DestinationsGrid({ destinations }: { destinations: Destination[] }) {
+export function DestinationsGrid({ destinations, totalCount }: { destinations: Destination[]; totalCount?: number }) {
   return (
     <section className="py-20 px-5">
       <div className="container max-w-[1200px] mx-auto">
@@ -26,7 +26,7 @@ export function DestinationsGrid({ destinations }: { destinations: Destination[]
             </p>
           </div>
           <Link href="/destinations" className="border border-white/20 hover:border-white/50 hover:bg-white/[0.04] text-white/80 px-6 py-3 rounded-md text-sm tracking-wide transition-all">
-            View all 48 →
+            View all {totalCount ?? destinations.length} →
           </Link>
         </AnimatedSection>
 
