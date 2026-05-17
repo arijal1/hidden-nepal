@@ -21,9 +21,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return getTrekMetadata(trek);
 }
 
+import { TrekRouteMap } from "@/components/treks/TrekRouteMap";
+import { getTrekRoute } from "@/lib/content/trek-routes";
+
 export default async function TrekDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const trek = await getTrekBySlug((await params).slug);
   if (!trek) notFound();
+  const trekRoute = getTrekRoute(trek.slug);
 
   const cfg = difficultyConfig[trek.difficulty];
 
@@ -88,6 +92,16 @@ export default async function TrekDetailPage({ params }: { params: Promise<{ slu
                 )}
               </AnimatedSection>
 
+              {/* Route Map */}
+              {trekRoute && (
+                <AnimatedSection delay={0.08}>
+                  <SectionLabel>Route Map</SectionLabel>
+                  <div className="mt-4 rounded-2xl overflow-hidden border border-white/[0.08]" style={{ height: 480 }}>
+                    <TrekRouteMap route={trekRoute} />
+                  </div>
+                  <p className="text-white/35 text-xs mt-3">Tap any waypoint for elevation and day info. {trekRoute.waypoints.length} stops along the route.</p>
+                </AnimatedSection>
+              )}
               {/* Elevation Profile */}
               {trek.elevationProfile?.length > 0 && (
                 <AnimatedSection delay={0.1}>
