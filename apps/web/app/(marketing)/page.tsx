@@ -9,6 +9,8 @@ import { DestinationsGrid } from "@/components/home/DestinationsGrid";
 import { GemsSection } from "@/components/home/GemsSection";
 import { TrekkingSection } from "@/components/home/TrekkingSection";
 import { LivingCulture } from "@/components/home/LivingCulture";
+import { AdventuresSection } from "@/components/home/AdventuresSection";
+import { getSignatureAdventures } from "@/lib/supabase/queries/adventures";
 import {
   PlannerTeaser,
   SafetyBanner,
@@ -24,11 +26,12 @@ export const metadata: Metadata = {
 
 export default async function HomePage() {
   // Fetch real data in parallel
-  const [destResp, gems, treks, totalTreksResp] = await Promise.all([
+  const [destResp, gems, treks, totalTreksResp, adventures] = await Promise.all([
     getDestinations({}, 1, 6),
     getHiddenGems(6),
     getTreks(undefined, 6),
     getTreks(undefined, 1000),
+    getSignatureAdventures(),
   ]);
   const destinations = destResp.data;
   const destinationCount = destResp.total ?? destResp.data.length;
@@ -46,6 +49,7 @@ export default async function HomePage() {
         <DestinationsGrid destinations={destinations} />
         <GemsSection gems={gems} />
         <TrekkingSection treks={treks} />
+        <AdventuresSection adventures={adventures} />
         <PlannerTeaser />
         <LivingCulture />
         <Suspense fallback={null}>
