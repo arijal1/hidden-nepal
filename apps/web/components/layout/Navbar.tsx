@@ -36,13 +36,12 @@ const navItems: NavItem[] = [
     ],
   },
   {
-    label: "Trekking",
+    label: "Experiences",
     href: "/treks",
     submenu: [
-      { label: "All Routes", href: "/treks", description: "Every major trekking route", icon: "🥾" },
-      { label: "EBC Trek", href: "/treks/everest-base-camp", description: "The classic Everest journey", icon: "🏔️" },
-      { label: "Annapurna Circuit", href: "/treks/annapurna-circuit", description: "Around the Annapurna massif", icon: "⛰️" },
-      { label: "Manaslu Circuit", href: "/treks/manaslu-circuit", description: "Nepal's hidden trekking gem", icon: "🗻" },
+      { label: "Trekking", href: "/treks", description: "From day hikes to 22-day Himalayan circuits", icon: "🥾" },
+      { label: "Adventure Sports", href: "/adventures", description: "Rafting, paragliding, bungee, mountain biking", icon: "⚡" },
+      { label: "Spiritual & Cultural", href: "/spiritual", description: "Sacred temples, monasteries, and pilgrimage sites", icon: "🙏" },
     ],
   },
   { label: "Community", href: "/community" },
