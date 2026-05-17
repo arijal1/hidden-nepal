@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
-export function HeroSection() {
+export function HeroSection({ destinationCount, trekCount }: { destinationCount?: number; trekCount?: number } = {}) {
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
@@ -86,9 +86,9 @@ export function HeroSection() {
           className="absolute bottom-16 left-0 right-0 flex items-center justify-center gap-12 lg:gap-20"
           style={{ animation: "fadeIn 1s ease-out 1.2s both" }}
         >
-          <Stat number="48" label="Destinations" />
+          <Stat number={String(destinationCount ?? 48)} label="Destinations" />
           <div className="h-10 w-px bg-white/15" />
-          <Stat number="20" label="Curated Treks" />
+          <Stat number={String(trekCount ?? 20)} label="Curated Treks" />
           <div className="h-10 w-px bg-white/15" />
           <Stat number="7" label="Provinces" />
         </div>

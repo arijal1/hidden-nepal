@@ -24,12 +24,15 @@ export const metadata: Metadata = {
 
 export default async function HomePage() {
   // Fetch real data in parallel
-  const [destResp, gems, treks] = await Promise.all([
+  const [destResp, gems, treks, totalTreksResp] = await Promise.all([
     getDestinations({}, 1, 6),
     getHiddenGems(6),
     getTreks(undefined, 6),
+    getTreks(undefined, 1000),
   ]);
   const destinations = destResp.data;
+  const destinationCount = destResp.total ?? destResp.data.length;
+  const trekCount = totalTreksResp.length;
 
   return (
     <>
@@ -38,7 +41,7 @@ export default async function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema()) }}
       />
       <main className="bg-base-950">
-        <HeroSection />
+        <HeroSection destinationCount={destinationCount} trekCount={trekCount} />
         <StatsBanner />
         <DestinationsGrid destinations={destinations} />
         <GemsSection gems={gems} />
