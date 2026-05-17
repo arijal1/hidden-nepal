@@ -1,6 +1,8 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import { websiteSchema } from "@/lib/seo/schema";
+import { getDestinations, getHiddenGems } from "@/lib/supabase/queries/destinations";
+import { getTreks } from "@/lib/supabase/queries/treks";
 import { HeroSection } from "@/components/home/HeroSection";
 import { StatsBanner } from "@/components/home/StatsBanner";
 import { DestinationsGrid } from "@/components/home/DestinationsGrid";
@@ -21,6 +23,14 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
+  // Fetch real data in parallel
+  const [destResp, gems, treks] = await Promise.all([
+    getDestinations({}, 1, 6),
+    getHiddenGems(6),
+    getTreks(undefined, 6),
+  ]);
+  const destinations = destResp.data;
+
   return (
     <>
       <script
@@ -30,9 +40,9 @@ export default async function HomePage() {
       <main className="bg-base-950">
         <HeroSection />
         <StatsBanner />
-        <DestinationsGrid destinations={[]} />
-        <GemsSection gems={[]} />
-        <TrekkingSection treks={[]} />
+        <DestinationsGrid destinations={destinations} />
+        <GemsSection gems={gems} />
+        <TrekkingSection treks={treks} />
         <PlannerTeaser />
         <LivingCulture />
         <Suspense fallback={null}>
