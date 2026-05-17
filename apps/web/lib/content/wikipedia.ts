@@ -272,3 +272,74 @@ function cleanExtract(text: string): string {
     .trim()
     .slice(0, 1500);               // cap at 1500 chars
 }
+
+// ─── Category-based discovery ─────────────────────────────────
+export interface WikiCategoryMember {
+  pageid: number;
+  title: string;
+  lat?: number;
+  lng?: number;
+  thumbnail?: string;
+  extract?: string;
+}
+
+/**
+ * Fetch all members of a Wikipedia category, with coordinates and thumbnails.
+ * Used to seed bulk import from curated lists like "Lakes_of_Nepal".
+ */
+export async function getNepalCategoryMembers(
+  category: string,
+  limit = 50
+): Promise<WikiCategoryMember[]> {
+  const url = new URL("https://en.wikipedia.org/w/api.php");
+  url.searchParams.set("action", "query");
+  url.searchParams.set("format", "json");
+  url.searchParams.set("generator", "categorymembers");
+  url.searchParams.set("gcmtitle", `Category:${category}`);
+  url.searchParams.set("gcmtype", "page");
+  url.searchParams.set("gcmlimit", String(limit));
+  url.searchParams.set("prop", "coordinates|pageimages|extracts");
+  url.searchParams.set("exintro", "1");
+  url.searchParams.set("explaintext", "1");
+  url.searchParams.set("exchars", "500");
+  url.searchParams.set("piprop", "thumbnail");
+  url.searchParams.set("pithumbsize", "600");
+  url.searchParams.set("origin", "*");
+
+  try {
+    const res = await fetch(url.toString(), {
+      headers: { "User-Agent": "HiddenNepal/1.0 (https://hiddennepal.anuprijal.com)" },
+    });
+    if (!res.ok) return [];
+    const data = await res.json();
+    const pages = data?.query?.pages ?? {};
+    return Object.values(pages).map((p: any) => ({
+      pageid: p.pageid,
+      title: p.title,
+      lat: p.coordinates?.[0]?.lat,
+      lng: p.coordinates?.[0]?.lon,
+      thumbnail: p.thumbnail?.source,
+      extract: p.extract,
+    })).filter((p: any) => p.title);
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Map our internal category to Wikipedia category names.
+ */
+export function nepalWikiCategoriesFor(category: string): string[] {
+  switch (category) {
+    case "lake": return ["Lakes_of_Nepal"];
+    case "temple": return ["Hindu_temples_in_Nepal", "Buddhist_temples_in_Nepal"];
+    case "peak": return ["Mountains_of_Nepal", "Eight-thousanders"];
+    case "waterfall": return ["Waterfalls_of_Nepal"];
+    case "park": return ["National_parks_of_Nepal", "Wildlife_sanctuaries_of_Nepal"];
+    case "city": return ["Cities_in_Nepal", "Populated_places_in_Nepal"];
+    case "heritage": return ["World_Heritage_Sites_in_Nepal", "Heritage_sites_in_Nepal"];
+    case "viewpoint": return ["Hill_stations_in_Nepal"];
+    case "village": return ["Villages_in_Nepal"];
+    default: return [];
+  }
+}

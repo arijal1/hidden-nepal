@@ -2,7 +2,7 @@
 // 2-step curated import: discover + score (cheap) → user selects → import (AI per item)
 
 import { fetchOSMByCategory, type OSMLocation } from "./openstreetmap";
-import { getWikipediaArticle, getWikimediaImages } from "./wikipedia";
+import { getWikipediaArticle, getWikimediaImages, getNepalCategoryMembers, nepalWikiCategoriesFor } from "./wikipedia";
 import { createAdminClient } from "@/lib/supabase/server";
 import { slugify } from "@/lib/utils/formatters";
 import { inferProvince } from "@/lib/mapbox/geocoding";
@@ -90,7 +90,36 @@ export async function* discoverCandidates(options: {
     return;
   }
 
-  yield { type: "progress", message: `Found ${osmResults.length} candidates. Scoring…`, total: osmResults.length };
+  // ALSO seed from Wikipedia categories (curated, notable)
+  const wikiCats = nepalWikiCategoriesFor(category);
+  const wikiSeeds: Array<{ name: string; lat?: number; lng?: number; thumbnail?: string; extract?: string }> = [];
+  for (const cat of wikiCats) {
+    try {
+      const members = await getNepalCategoryMembers(cat, 50);
+      for (const m of members) wikiSeeds.push({ name: m.title, lat: m.lat, lng: m.lng, thumbnail: m.thumbnail, extract: m.extract });
+    } catch {}
+  }
+
+  // Merge Wikipedia seeds that aren't already in OSM results (match by name)
+  const osmNamesLower = new Set(osmResults.map((o) => o.name.toLowerCase()));
+  let wikiAdded = 0;
+  for (const w of wikiSeeds) {
+    if (osmNamesLower.has(w.name.toLowerCase())) continue;
+    if (!w.lat || !w.lng) continue;
+    // Skip if outside rough Nepal bbox
+    if (w.lat < 26.3 || w.lat > 30.5 || w.lng < 80.0 || w.lng > 88.2) continue;
+    osmResults.push({
+      id: 900000000 + wikiAdded,
+      name: w.name,
+      lat: w.lat,
+      lng: w.lng,
+      tags: { source: "wikipedia_category", wikipedia: `en:${w.name}` },
+      category,
+      osmType: "node",
+    } as any);
+    wikiAdded++;
+  }
+  yield { type: "progress", message: `Found ${osmResults.length} candidates (${wikiAdded} from Wikipedia categories). Scoring…`, total: osmResults.length };
 
   // Get existing slugs to skip duplicates
   const { data: existing } = await supabase
