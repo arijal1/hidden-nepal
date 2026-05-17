@@ -61,9 +61,17 @@ export async function getDestinations(
       transport_routes(*)
     `, { count: "exact" })
     .eq("is_published", true)
-    .order("is_featured", { ascending: false })
-    .order("avg_rating", { ascending: false })
     .range(offset, offset + pageSize - 1);
+  // Dynamic sorting
+  const sortBy = (filters as any).sortBy ?? "featured";
+  if (sortBy === "name") query = query.order("name", { ascending: true });
+  else if (sortBy === "elevation") query = query.order("elevation_m", { ascending: false, nullsFirst: false });
+  else if (sortBy === "new") query = query.order("created_at", { ascending: false });
+  else if (sortBy === "gems") query = query.order("is_hidden_gem", { ascending: false }).order("name");
+  else if (sortBy === "province") query = query.order("province").order("name");
+  else { // "featured" default
+    query = query.order("is_featured", { ascending: false }).order("avg_rating", { ascending: false });
+  }
 
   if (filters.category) query = query.eq("category", filters.category);
   if (filters.province) query = query.eq("province", filters.province);
