@@ -14,6 +14,7 @@ const NAV_ITEMS = [
   { label: "Bulk Import",    href: "/admin/bulk-import",  icon: "⚡" },
   { label: "Bulk Import V2", href: "/admin/bulk-import-v2", icon: "✨" },
   { label: "Inquiries",       href: "/admin/inquiries",     icon: "📨" },
+  { label: "Trek Routes",     href: "/admin/trek-routes",   icon: "🗺" },
   { label: "Trek Import",    href: "/admin/trek-import",  icon: "🥾" },
   { label: "Transport Gen",  href: "/admin/transport-generator", icon: "🚌" },
   { label: "Destinations",   href: "/admin/destinations", icon: "📍" },

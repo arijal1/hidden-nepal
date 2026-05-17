@@ -27,7 +27,11 @@ import { getTrekRoute } from "@/lib/content/trek-routes";
 export default async function TrekDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const trek = await getTrekBySlug((await params).slug);
   if (!trek) notFound();
-  const trekRoute = getTrekRoute(trek.slug);
+  // DB waypoints override hardcoded
+  const dbWaypoints = (trek as any).routeWaypoints;
+  const trekRoute = (Array.isArray(dbWaypoints) && dbWaypoints.length > 0)
+    ? { slug: trek.slug, name: trek.name, waypoints: dbWaypoints }
+    : getTrekRoute(trek.slug);
 
   const cfg = difficultyConfig[trek.difficulty];
 
