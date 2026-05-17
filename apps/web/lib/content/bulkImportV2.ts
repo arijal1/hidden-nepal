@@ -2,7 +2,7 @@
 // 2-step curated import: discover + score (cheap) → user selects → import (AI per item)
 
 import { fetchOSMByCategory, type OSMLocation } from "./openstreetmap";
-import { getWikipediaArticle, getWikimediaImages, getNepalCategoryMembers, nepalWikiCategoriesFor } from "./wikipedia";
+import { getWikipediaArticle, getWikimediaImages, getNepalCategoryMembers, nepalWikiCategoriesFor, getWikipediaFullText, getWikivoyageArticle } from "./wikipedia";
 import { searchFlickrPhotos } from "./flickr";
 import { createAdminClient } from "@/lib/supabase/server";
 import { slugify } from "@/lib/utils/formatters";
@@ -240,6 +240,13 @@ export async function* importSelected(options: {
     try {
       const slug = slugify(c.name);
 
+      // Fetch FULL Wikipedia article + Wikivoyage for richer AI context
+      const wikiTitle = c.wikipediaTitle ?? c.name;
+      const [wikiFullText, wikivoyageText] = await Promise.all([
+        getWikipediaFullText(wikiTitle).catch(() => ""),
+        getWikivoyageArticle(c.name).catch(() => ""),
+      ]);
+
       // AI enrich — Sonnet + rich context
       const relevantTags = Object.entries(c.tags)
         .filter(([k]) => !["source", "created_by", "name", "name:en", "name:ne", "wikipedia", "wikidata"].includes(k))
@@ -269,6 +276,8 @@ ${c.elevation ? `Elevation: ${c.elevation}m` : ""}
 ${relevantTags ? `OSM tags: ${relevantTags}` : ""}
 ${c.wikipediaTitle ? `Wikipedia: ${c.wikipediaTitle}` : ""}
 ${c.wikiSummary ? `Wikipedia summary: ${c.wikiSummary}` : ""}
+${wikiFullText ? `\nFULL Wikipedia article:\n${wikiFullText}` : ""}
+${wikivoyageText ? `\nWikivoyage travel guide:\n${wikivoyageText}` : ""}
 
 Be accurate. If you don't have enough information about specifics, write generally about the region/category rather than inventing details. Never fabricate names, dates, or events.`;
 

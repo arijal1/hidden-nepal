@@ -343,3 +343,65 @@ export function nepalWikiCategoriesFor(category: string): string[] {
     default: return [];
   }
 }
+
+// ─── Full article extract (for AI enrichment context) ─────────────
+/**
+ * Fetch full plaintext of a Wikipedia article (not just intro).
+ * Limited to ~4000 chars to keep AI context manageable.
+ */
+export async function getWikipediaFullText(title: string): Promise<string> {
+  const params = new URLSearchParams({
+    action: "query",
+    titles: title,
+    prop: "extracts",
+    explaintext: "true",
+    format: "json",
+    origin: "*",
+  });
+  try {
+    const res = await fetch(`https://en.wikipedia.org/w/api.php?${params}`, {
+      headers: { "User-Agent": "HiddenNepal/1.0" },
+    });
+    if (!res.ok) return "";
+    const data = await res.json();
+    const pages = data.query?.pages;
+    if (!pages) return "";
+    const page = Object.values(pages)[0] as any;
+    if (page.missing) return "";
+    const text = (page.extract ?? "").replace(/\n{3,}/g, "\n\n");
+    return text.slice(0, 4000);
+  } catch {
+    return "";
+  }
+}
+
+// ─── Wikivoyage (travel-specific guides) ──────────────────────────
+/**
+ * Fetch Wikivoyage article extract for a destination.
+ * Wikivoyage has travel-specific "See / Do / Eat / Sleep" sections.
+ */
+export async function getWikivoyageArticle(title: string): Promise<string> {
+  const params = new URLSearchParams({
+    action: "query",
+    titles: title,
+    prop: "extracts",
+    explaintext: "true",
+    exsectionformat: "plain",
+    format: "json",
+    origin: "*",
+  });
+  try {
+    const res = await fetch(`https://en.wikivoyage.org/w/api.php?${params}`, {
+      headers: { "User-Agent": "HiddenNepal/1.0" },
+    });
+    if (!res.ok) return "";
+    const data = await res.json();
+    const pages = data.query?.pages;
+    if (!pages) return "";
+    const page = Object.values(pages)[0] as any;
+    if (page.missing) return "";
+    return (page.extract ?? "").slice(0, 3000);
+  } catch {
+    return "";
+  }
+}
