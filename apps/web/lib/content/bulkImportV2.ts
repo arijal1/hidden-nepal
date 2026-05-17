@@ -253,7 +253,33 @@ export async function* importSelected(options: {
         .map(([k, v]) => `${k}=${v}`)
         .join(", ");
 
-      const prompt = `You are writing for Hidden Nepal — a curated travel platform showcasing Nepal beyond the obvious tourist trail. Voice: editorial, knowledgeable, specific. Not generic travel-brochure language.
+      const prompt = `You are writing for Hidden Nepal — a curated travel platform. Think of the New York Times Travel section or Pico Iyer, not TripAdvisor.
+
+VOICE: Editorial. Knowledgeable. Specific. Restrained.
+
+WORDS/PHRASES TO AVOID (these are AI-tells):
+- "Hidden gem", "must-visit", "breathtaking", "stunning", "spectacular"
+- "Nestled in", "tucked away", "off the beaten path"
+- "Embark on a journey", "immerse yourself", "discover the magic"
+- "A unique experience", "unlike anywhere else"
+- Sentences that start with "X is a beautiful/famous/popular..."
+
+OPENING LINE EXAMPLES:
+✓ "The walk in takes three days through pine forests inhabited by red pandas, which is part of the point."
+✓ "Cars are banned in Bandipur, which is what saved it."
+✓ "Pashupatinath functions less as a temple than as a city of the dead — the cremation ghats run continuously."
+✗ "Rara Lake is a beautiful lake in Karnali Province."
+
+TAGLINE EXAMPLES:
+✓ "Nepal's largest lake, at 3,000m in the country's least-visited province"
+✓ "A 17th-century Newari town frozen in stone — and entirely car-free"
+✗ "Discover the natural beauty of [place]"
+
+HIGHLIGHT EXAMPLES:
+✓ "Sunrise from Tundikhel ridge — 15-min walk from the square, Annapurna panorama"
+✓ "Khadga Devi Temple — sword sanctuary opened ceremonially every 12 years"
+✗ "Enjoy breathtaking views"
+✗ "Experience the local culture"
 
 Write rich, accurate content for this destination. Return ONLY valid JSON (no markdown, no preamble):
 
