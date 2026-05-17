@@ -208,7 +208,7 @@ function MobileMenu({
                           className="flex items-center gap-2 p-2 rounded-lg text-white/40 hover:text-white/70 transition-colors text-sm"
                           onClick={onClose}
                         >
-                          <span className="text-xs">{sub.icon}</span>
+                          <span className="shrink-0 text-brand-400">{(() => { const Icon = sub.icon; return <Icon size={14} strokeWidth={1.75} />; })()}</span>
                           {sub.label}
                         </Link>
                       ))}
