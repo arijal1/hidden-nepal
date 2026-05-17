@@ -194,31 +194,42 @@ export async function* importSelected(options: {
     try {
       const slug = slugify(c.name);
 
-      // AI enrich
-      const prompt = `Write rich content for this Nepal destination. Return ONLY valid JSON, no markdown:
+      // AI enrich — Sonnet + rich context
+      const relevantTags = Object.entries(c.tags)
+        .filter(([k]) => !["source", "created_by", "name", "name:en", "name:ne", "wikipedia", "wikidata"].includes(k))
+        .map(([k, v]) => `${k}=${v}`)
+        .join(", ");
+
+      const prompt = `You are writing for Hidden Nepal — a curated travel platform showcasing Nepal beyond the obvious tourist trail. Voice: editorial, knowledgeable, specific. Not generic travel-brochure language.
+
+Write rich, accurate content for this destination. Return ONLY valid JSON (no markdown, no preamble):
 
 {
-  "tagline": "compelling 1-line hook",
-  "description": "200-400 word description covering what makes it special, cultural context, what to see/do",
-  "highlights": ["5-7 specific highlights"],
+  "tagline": "ONE specific, evocative line (10-15 words). Avoid clichés like 'hidden gem', 'breathtaking', 'must-visit'",
+  "description": "350-500 words. Open with a specific detail or scene — not 'X is a beautiful place'. Cover: what makes it culturally/geographically distinctive, what travelers actually experience, practical context (best access, when to go), and any cultural significance. Write like a knowledgeable friend, not a brochure.",
+  "highlights": ["5-7 specific things to see/do — concrete, not generic. e.g. 'Sunset viewing platform at 4,200m' not 'enjoy the views'"],
   "bestSeason": ["Spring", "Autumn"],
-  "tags": ["6-10 lowercase tags"],
-  "warnings": ["practical warnings if any"],
-  "seoTitle": "60-char SEO title",
-  "seoDescription": "150-char SEO description",
-  "isHiddenGem": false
+  "tags": ["6-10 lowercase descriptive tags — e.g. 'sacred lake', 'newari heritage', 'high-altitude trek'"],
+  "warnings": ["practical warnings if any — altitude, monsoon access, permits needed"],
+  "seoTitle": "60-char SEO title — specific, not 'X - Hidden Nepal'",
+  "seoDescription": "150-char SEO description — punchy, distinctive",
+  "isHiddenGem": "true if NOT in mainstream travel guides (Lonely Planet, etc.), else false"
 }
 
-Location: ${c.name}${c.nameNepali ? ` (${c.nameNepali})` : ""}
-Province: ${c.province}
+Destination: ${c.name}${c.nameNepali ? ` (${c.nameNepali})` : ""}
+Province: ${c.province} (${c.lat.toFixed(3)}, ${c.lng.toFixed(3)})
 Category: ${c.category}
 ${c.elevation ? `Elevation: ${c.elevation}m` : ""}
-${c.wikiSummary ? `Wikipedia: ${c.wikiSummary}` : ""}`;
+${relevantTags ? `OSM tags: ${relevantTags}` : ""}
+${c.wikipediaTitle ? `Wikipedia: ${c.wikipediaTitle}` : ""}
+${c.wikiSummary ? `Wikipedia summary: ${c.wikiSummary}` : ""}
+
+Be accurate. If you don't have enough information about specifics, write generally about the region/category rather than inventing details. Never fabricate names, dates, or events.`;
 
       const response = await anthropic.messages.create({
-        model: "claude-haiku-4-5",
-        max_tokens: 1500,
-        temperature: 0.5,
+        model: "claude-sonnet-4-6",
+        max_tokens: 2500,
+        temperature: 0.7,
         messages: [{ role: "user", content: prompt }],
       });
 
