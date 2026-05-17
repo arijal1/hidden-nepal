@@ -118,7 +118,7 @@ export function FestivalCalendar() {
     <section className="py-20 px-5">
       <div className="container max-w-[1200px] mx-auto">
         <AnimatedSection className="mb-10">
-          <p className="text-gold-400 text-[10px] font-mono tracking-widest uppercase mb-3">◈ Culture & Festivals</p>
+          <p className="text-gold-400 text-[10px] font-mono tracking-widest uppercase mb-3">Culture & Festivals</p>
           <h2 className="text-display-md text-white">Nepal's living culture</h2>
         </AnimatedSection>
 

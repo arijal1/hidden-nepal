@@ -131,7 +131,7 @@ export default function TrekImportPage() {
               }
             >
               {log.type === "start" && `▶ ${log.message}`}
-              {log.type === "progress" && `◈ ${log.message}`}
+              {log.type === "progress" && `${log.message}`}
               {log.type === "success" && `✓ ${log.trek} ${log.message ?? ""}`}
               {log.type === "skip" && `⊘ ${log.trek} — ${log.message}`}
               {log.type === "fail" && `✗ ${log.trek} — ${log.error}`}

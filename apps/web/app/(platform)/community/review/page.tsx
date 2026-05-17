@@ -79,7 +79,7 @@ function WriteReviewInner() {
     <div className="min-h-screen bg-base-950 pb-24">
       <section className="pt-12 pb-8 px-5 border-b border-white/[0.06]">
         <div className="container max-w-[720px] mx-auto">
-          <p className="section-label mb-3">◈ Community</p>
+          <p className="section-label mb-3">Community</p>
           <h1 className="text-display-md text-white mb-2">Write a Review</h1>
           <p className="text-white/40 text-sm">
             {destinationSlug

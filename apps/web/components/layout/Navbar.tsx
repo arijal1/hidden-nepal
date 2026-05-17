@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { SignedIn, SignedOut, UserButton, SignInButton } from "@clerk/nextjs";
 import { cn } from "@/lib/utils/formatters";
+import { Compass, Sparkles, Map as MapIcon, MapPin, Mountain, Zap, HandHeart, type LucideIcon } from "lucide-react";
 
 // ─── Types ────────────────────────────────────────────
 
@@ -19,7 +20,7 @@ interface SubItem {
   label: string;
   href: string;
   description: string;
-  icon: string;
+  icon: LucideIcon;
 }
 
 // ─── Data ─────────────────────────────────────────────
@@ -29,19 +30,19 @@ const navItems: NavItem[] = [
     label: "Explore",
     href: "/explore",
     submenu: [
-      { label: "All Destinations", href: "/destinations", description: "Browse every place in Nepal", icon: "◈" },
-      { label: "Hidden Gems", href: "/hidden-gems", description: "Places even locals keep secret", icon: "✦" },
-      { label: "By Province", href: "/explore/provinces", description: "Filter by Nepal's 7 provinces", icon: "🗺" },
-      { label: "Near Me", href: "/nearby", description: "Destinations close to your location", icon: "📍" },
+      { label: "All Destinations", href: "/destinations", description: "Browse every place in Nepal", icon: Compass },
+      { label: "Hidden Gems", href: "/hidden-gems", description: "Places even locals keep secret", icon: Sparkles },
+      { label: "By Province", href: "/explore/provinces", description: "Filter by Nepal's 7 provinces", icon: MapIcon },
+      { label: "Near Me", href: "/nearby", description: "Destinations close to your location", icon: MapPin },
     ],
   },
   {
     label: "Experiences",
     href: "/treks",
     submenu: [
-      { label: "Trekking", href: "/treks", description: "From day hikes to 22-day Himalayan circuits", icon: "🥾" },
-      { label: "Adventure Sports", href: "/adventures", description: "Rafting, paragliding, bungee, mountain biking", icon: "⚡" },
-      { label: "Spiritual & Cultural", href: "/spiritual", description: "Sacred temples, monasteries, and pilgrimage sites", icon: "🙏" },
+      { label: "Trekking", href: "/treks", description: "From day hikes to 22-day Himalayan circuits", icon: Mountain },
+      { label: "Adventure Sports", href: "/adventures", description: "Rafting, paragliding, bungee, mountain biking", icon: Zap },
+      { label: "Spiritual & Cultural", href: "/spiritual", description: "Sacred temples, monasteries, and pilgrimage sites", icon: HandHeart },
     ],
   },
   { label: "Community", href: "/community" },
@@ -126,7 +127,9 @@ function Submenu({ items }: { items: SubItem[] }) {
           href={item.href}
           className="flex items-start gap-3 p-3 rounded-xl hover:bg-white/[0.06] transition-all duration-200 group"
         >
-          <span className="text-lg mt-0.5 w-6 text-center shrink-0">{item.icon}</span>
+          <span className="mt-0.5 w-6 flex justify-center shrink-0 text-brand-400">
+            {(() => { const Icon = item.icon; return <Icon size={18} strokeWidth={1.75} />; })()}
+          </span>
           <div>
             <p className="text-white/80 text-sm font-medium group-hover:text-white transition-colors">
               {item.label}

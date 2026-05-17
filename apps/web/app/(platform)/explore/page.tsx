@@ -46,7 +46,7 @@ export default async function ExplorePage() {
         <div className="container max-w-[1200px] mx-auto">
           <AnimatedSection className="flex items-end justify-between gap-4 flex-wrap">
             <div>
-              <p className="section-label mb-2">◈ Explore</p>
+              <p className="section-label mb-2">Explore</p>
               <h1 className="text-display-md text-white">Discover Nepal on the map</h1>
               <p className="text-white/35 text-sm mt-2 max-w-md">
                 Click any marker to explore. Clusters expand when you zoom in. Filter by category or province.

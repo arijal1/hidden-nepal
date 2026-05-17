@@ -27,7 +27,7 @@ export default function SavedPage() {
       <section className="pt-12 pb-8 px-5 border-b border-white/[0.06]">
         <div className="container max-w-[1200px] mx-auto">
           <div className="flex items-center gap-3 mb-3">
-            <p className="section-label">◈ Saved</p>
+            <p className="section-label">Saved</p>
             {!isOnline && (
               <span className="text-gold-400 text-xs font-mono border border-gold-400/25 rounded-full px-2.5 py-0.5">
                 Offline mode

@@ -101,7 +101,7 @@ export default function TransportGeneratorPage() {
               }
             >
               {log.type === "start" && `▶ ${log.message}`}
-              {log.type === "progress" && `◈ ${log.message}`}
+              {log.type === "progress" && `${log.message}`}
               {log.type === "success" && `✓ ${log.destination} ${log.message ?? ""}`}
               {log.type === "skip" && `⊘ ${log.destination} — ${log.message}`}
               {log.type === "fail" && `✗ ${log.destination} — ${log.error}`}

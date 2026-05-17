@@ -11,7 +11,7 @@ export default function NearbyPage() {
     <div className="min-h-screen bg-base-950 pb-24">
       <section className="pt-12 pb-8 px-5 border-b border-white/[0.06]">
         <div className="container max-w-[1200px] mx-auto">
-          <p className="section-label mb-3">◈ Near Me</p>
+          <p className="section-label mb-3">Near Me</p>
           <h1 className="text-display-lg text-white mb-3">
             Destinations near you
           </h1>

@@ -36,7 +36,7 @@ export default async function TreksPage({
       <section className="border-b border-white/[0.06] pt-12 pb-10 px-5">
         <div className="container max-w-[1200px] mx-auto">
           <AnimatedSection>
-            <p className="section-label mb-3">◈ Trekking Routes</p>
+            <p className="section-label mb-3">Trekking Routes</p>
             <h1 className="text-display-lg text-white mb-2">
               Nepal's trails<br />
               <em className="italic text-white/35">from valley floor to glacier</em>

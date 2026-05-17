@@ -64,7 +64,7 @@ export default function CommunityPage() {
       <section className="pt-14 pb-12 px-5 border-b border-white/[0.06] bg-gradient-to-b from-brand-500/[0.04] to-transparent">
         <div className="container max-w-[1200px] mx-auto">
           <AnimatedSection className="max-w-2xl">
-            <p className="section-label mb-4">◈ Community</p>
+            <p className="section-label mb-4">Community</p>
             <h1 className="text-display-lg text-white mb-4">
               Nepal, built by those<br />
               <em className="italic text-brand-400">who know it best</em>

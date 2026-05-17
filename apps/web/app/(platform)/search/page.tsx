@@ -56,7 +56,7 @@ export default async function SearchPage({
       <section className="pt-12 pb-10 px-5 border-b border-white/[0.06]">
         <div className="container max-w-[800px] mx-auto">
           <AnimatedSection>
-            <p className="section-label mb-4">◈ Search</p>
+            <p className="section-label mb-4">Search</p>
             <SearchBox initialQuery={query} />
             {query && (
               <p className="text-white/30 text-sm mt-4 font-mono">
