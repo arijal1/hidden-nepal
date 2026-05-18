@@ -77,10 +77,8 @@ export async function getDestinations(
   if (filters.province) query = query.eq("province", filters.province);
   if (filters.isHiddenGem) query = query.eq("is_hidden_gem", true);
   if (filters.query) {
-    query = query.textSearch("fts", filters.query, {
-      type: "websearch",
-      config: "english",
-    });
+    const q = filters.query.trim();
+    query = query.or(`name.ilike.%${q}%,tagline.ilike.%${q}%,description.ilike.%${q}%,name_nepali.ilike.%${q}%`);
   }
 
   const { data, error, count } = await query;

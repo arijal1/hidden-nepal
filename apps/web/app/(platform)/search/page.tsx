@@ -11,18 +11,18 @@ async function search(query: string) {
   if (!query || query.trim().length < 2) return { destinations: [], treks: [], gems: [] };
   const supabase = await createClient();
 
-  const [{ data: destinations }, { data: treks }, { data: gems }] = await Promise.all([
+  const [{ data: destinations }, { data: treks }, { data: gems }, { data: adventures }] = await Promise.all([
     supabase
       .from("destinations")
       .select("id, slug, name, tagline, category, cover_image_url, is_hidden_gem, avg_rating, province")
       .eq("is_published", true)
-      .textSearch("fts", query, { type: "websearch", config: "english" })
+      .or(`name.ilike.%${query}%,tagline.ilike.%${query}%,description.ilike.%${query}%,name_nepali.ilike.%${query}%`)
       .limit(9),
     supabase
       .from("treks")
       .select("id, slug, name, difficulty, cover_image_url, duration_days, max_elevation_m")
       .eq("is_published", true)
-      .textSearch("fts", query, { type: "websearch", config: "english" })
+      .or(`name.ilike.%${query}%,description.ilike.%${query}%`)
       .limit(6),
     supabase
       .from("hidden_gems")
@@ -31,12 +31,19 @@ async function search(query: string) {
       .eq("is_verified", true)
       .ilike("title", `%${query}%`)
       .limit(6),
+    supabase
+      .from("adventures")
+      .select("id, slug, name, tagline, type, cover_image_url, price_from")
+      .eq("is_published", true)
+      .or(`name.ilike.%${query}%,tagline.ilike.%${query}%,description.ilike.%${query}%`)
+      .limit(6),
   ]);
 
   return {
     destinations: destinations ?? [],
     treks: treks ?? [],
     gems: gems ?? [],
+    adventures: adventures ?? [],
   };
 }
 
