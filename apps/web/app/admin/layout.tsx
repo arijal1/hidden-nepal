@@ -19,7 +19,7 @@ const NAV_ITEMS = [
   { label: "Trek Routes",     href: "/admin/trek-routes",   icon: "🗺" },
   { label: "Trek Import",    href: "/admin/trek-import",  icon: "🥾" },
   { label: "Transport Gen",  href: "/admin/transport-generator", icon: "🚌" },
-  { label: "Destinations",   href: "/admin/destinations", icon: "📍" },
+  { label: "All Content",    href: "/admin/content",      icon: "" },
   { label: "Treks",          href: "/admin/treks",        icon: "🥾" },
   { label: "Hidden Gems",    href: "/admin/gems",         icon: "✦" },
   { label: "Safety Alerts",  href: "/admin/alerts",       icon: "⚠" },
