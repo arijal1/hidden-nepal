@@ -106,7 +106,7 @@ export function AboutThisPage({
           <p className="text-white/75 text-sm leading-relaxed mb-4">
             Get a custom Nepal itinerary built around {contentName}. We'll match you with vetted local operators.
           </p>
-          
+          <a
             href={`/plan?destination=${encodeURIComponent(contentName)}`}
             className="inline-flex items-center gap-2 bg-brand-500 hover:bg-brand-600 text-white px-4 py-2 rounded-md text-sm font-medium tracking-wide transition-all"
           >
