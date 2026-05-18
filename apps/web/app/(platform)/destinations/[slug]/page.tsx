@@ -259,25 +259,6 @@ export default async function DestinationPage({
             />
           </AnimatedSection>
 
-          <AnimatedSection delay={0.3} className="mt-20 pt-10 border-t border-white/[0.06]">
-            <p className="section-label mb-4">About this page</p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <p className="text-white/40 text-xs font-mono uppercase tracking-wider mb-2">Data Sources</p>
-                <ul className="space-y-1.5 text-sm text-white/60">
-                  <li><span className="text-brand-400">◈</span> OpenStreetMap — geographic data</li>
-                  <li><span className="text-brand-400">◈</span> Wikipedia — cultural context</li>
-                  <li><span className="text-brand-400">◈</span> Mapbox — maps & elevation</li>
-                  <li><span className="text-brand-400">◈</span> Claude AI — content enrichment</li>
-                </ul>
-              </div>
-              <div>
-                <p className="text-white/40 text-xs font-mono uppercase tracking-wider mb-2">Coordinates</p>
-                <p className="text-white/60 text-sm font-mono">{destination.coordinates?.lat?.toFixed(4)}, {destination.coordinates?.lng?.toFixed(4)}</p>
-                <p className="text-white/30 text-xs mt-4">Found an error? Email <a href="mailto:hello@anuprijal.com" className="text-brand-400 hover:underline">hello@anuprijal.com</a></p>
-              </div>
-            </div>
-          </AnimatedSection>
 
           <AboutThisPage
             contentType="destination"
