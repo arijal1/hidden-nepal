@@ -47,6 +47,7 @@ const navItems: NavItem[] = [
   },
   { label: "Community", href: "/community" },
   { label: "Safety", href: "/safety" },
+  { label: "About", href: "/about" },
 ];
 
 // ─── Search Bar ───────────────────────────────────────

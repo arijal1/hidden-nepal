@@ -31,6 +31,13 @@ const footerLinks = {
     { label: "Local Guides", href: "/community/guides" },
     { label: "Safety Alerts", href: "/safety" },
   ],
+  About: [
+    { label: "About Hidden Nepal", href: "/about" },
+    { label: "Data Sources", href: "/about#data-sources" },
+    { label: "Disclaimer", href: "/about#disclaimer" },
+    { label: "Privacy", href: "/about#data-collection" },
+    { label: "Contact", href: "/about#contact" },
+  ],
 };
 
 const socials = [
@@ -47,7 +54,7 @@ export function Footer() {
     <footer className="border-t border-white/[0.06] bg-black/30">
       {/* Main footer */}
       <div className="container max-w-[1200px] mx-auto px-5 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-10">
 
           {/* Brand column */}
           <div className="lg:col-span-1">
