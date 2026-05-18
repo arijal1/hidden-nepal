@@ -77,8 +77,12 @@ export async function* discoverCandidates(options: {
   category: string;
   minScore?: number;
   maxResults?: number;
+  province?: string;
+  hideDuplicates?: boolean;
+  requireWikipedia?: boolean;
+  requirePhoto?: boolean;
 }): AsyncGenerator<{ type: string; current?: number; total?: number; message?: string; candidate?: Candidate; error?: string }> {
-  const { category, minScore = 30, maxResults = 25 } = options;
+  const { category, minScore = 30, maxResults = 25, province, hideDuplicates = true, requireWikipedia = false, requirePhoto = false } = options;
   const supabase = createAdminClient();
 
   yield { type: "start", message: `Searching OpenStreetMap for ${category}…` };
@@ -177,9 +181,13 @@ export async function* discoverCandidates(options: {
       const totalImages = (imageUrl ? 1 : 0) + galleryUrls.length;
       const { score, reasons } = scoreCandidate(osm, !!article, totalImages);
 
-      if (score < minScore && !alreadyExists) continue;
+      if (score < minScore) continue;
+      if (hideDuplicates && alreadyExists) continue;
+      if (requireWikipedia && !article) continue;
+      if (requirePhoto && !imageUrl) continue;
 
-      const province = inferProvince(osm.lat, osm.lng);
+      const candidateProvince = inferProvince(osm.lat, osm.lng);
+      if (province && province !== "all" && candidateProvince !== province) continue;
 
       const candidate: Candidate = {
         osmId: osm.id,
@@ -188,7 +196,7 @@ export async function* discoverCandidates(options: {
         lat: osm.lat,
         lng: osm.lng,
         category,
-        province,
+        province: candidateProvince,
         elevation: osm.elevation,
         tags: osm.tags,
         wikipediaTitle: article?.title,

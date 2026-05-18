@@ -21,8 +21,8 @@ export async function POST(req: NextRequest) {
     async start(controller) {
       try {
         if (action === "discover") {
-          const { category, minScore = 30, maxResults = 25 } = body;
-          for await (const event of discoverCandidates({ category, minScore, maxResults })) {
+          const { category, minScore = 30, maxResults = 25, province, hideDuplicates = true, requireWikipedia = false, requirePhoto = false } = body;
+          for await (const event of discoverCandidates({ category, minScore, maxResults, province, hideDuplicates, requireWikipedia, requirePhoto })) {
             controller.enqueue(encoder.encode(`data: ${JSON.stringify(event)}\n\n`));
           }
         } else if (action === "import") {

@@ -38,6 +38,10 @@ export default function BulkImportV2Page() {
   const [category, setCategory] = useState("lake");
   const [minScore, setMinScore] = useState(40);
   const [maxResults, setMaxResults] = useState(25);
+  const [provinceFilter, setProvinceFilter] = useState("all");
+  const [hideDuplicates, setHideDuplicates] = useState(true);
+  const [requireWikipedia, setRequireWikipedia] = useState(false);
+  const [requirePhoto, setRequirePhoto] = useState(false);
   const [publish, setPublish] = useState(false);
   const [busy, setBusy] = useState(false);
   const [logs, setLogs] = useState<string[]>([]);
@@ -55,7 +59,7 @@ export default function BulkImportV2Page() {
       const res = await fetch("/api/admin/bulk-import-v2", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "discover", category, minScore, maxResults }),
+        body: JSON.stringify({ action: "discover", category, minScore, maxResults, province: provinceFilter, hideDuplicates, requireWikipedia, requirePhoto }),
       });
       if (!res.body) throw new Error("No response");
       const reader = res.body.getReader();
@@ -213,6 +217,41 @@ export default function BulkImportV2Page() {
               disabled={busy}
               className="w-full"
             />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 border-t border-white/[0.06]">
+          <div>
+            <label className="text-white/40 text-xs font-mono uppercase tracking-wider mb-2 block">Province</label>
+            <select
+              value={provinceFilter}
+              onChange={(e) => setProvinceFilter(e.target.value)}
+              disabled={busy}
+              className="w-full bg-white/[0.05] border border-white/[0.1] rounded-lg px-3 py-2.5 text-white text-sm"
+            >
+              <option value="all">All provinces</option>
+              <option value="Koshi">Koshi</option>
+              <option value="Madhesh">Madhesh</option>
+              <option value="Bagmati">Bagmati</option>
+              <option value="Gandaki">Gandaki</option>
+              <option value="Lumbini">Lumbini</option>
+              <option value="Karnali">Karnali</option>
+              <option value="Sudurpashchim">Sudurpashchim</option>
+            </select>
+          </div>
+          <div className="space-y-2 pt-6">
+            <label className="flex items-center gap-2 text-sm text-white/70 cursor-pointer">
+              <input type="checkbox" checked={hideDuplicates} onChange={(e) => setHideDuplicates(e.target.checked)} disabled={busy} className="accent-brand-500" />
+              Hide already-imported destinations
+            </label>
+            <label className="flex items-center gap-2 text-sm text-white/70 cursor-pointer">
+              <input type="checkbox" checked={requireWikipedia} onChange={(e) => setRequireWikipedia(e.target.checked)} disabled={busy} className="accent-brand-500" />
+              Only show with Wikipedia article
+            </label>
+            <label className="flex items-center gap-2 text-sm text-white/70 cursor-pointer">
+              <input type="checkbox" checked={requirePhoto} onChange={(e) => setRequirePhoto(e.target.checked)} disabled={busy} className="accent-brand-500" />
+              Only show with photos
+            </label>
           </div>
         </div>
 

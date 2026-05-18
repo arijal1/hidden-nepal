@@ -11,7 +11,6 @@ async function checkAdmin() {
 const NAV_ITEMS = [
   { label: "Dashboard",      href: "/admin",              icon: "" },
   { label: "Import Location",href: "/admin/locations",    icon: "🔍" },
-  { label: "Bulk Import",    href: "/admin/bulk-import",  icon: "⚡" },
   { label: "Bulk Import V2", href: "/admin/bulk-import-v2", icon: "✨" },
   { label: "Verified Import",  href: "/admin/verified-import", icon: "🔍" },
   { label: "Inquiries",       href: "/admin/inquiries",     icon: "📨" },
