@@ -24,6 +24,7 @@ export function VisualJourney({ frames }: { frames: Destination[] }) {
 
         <div className="flex md:grid md:grid-cols-4 gap-3 overflow-x-auto md:overflow-visible -mx-5 px-5 md:mx-0 md:px-0 snap-x snap-mandatory pb-4">
           {frames.slice(0, 8).map((f: any, idx: number) => (
+            <a
             
               key={f.id}
               href={`/destinations/${f.slug}`}
