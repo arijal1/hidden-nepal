@@ -36,6 +36,7 @@ export default async function HomePage() {
   ]);
   const destinations = destResp.data;
   const destinationCount = destResp.total ?? destResp.data.length;
+  const visualFrames = (await getDestinations({}, 1, 24)).data.filter((d: any) => d.coverImageUrl).slice(0, 8);
   const trekCount = totalTreksResp.length;
 
   return (
@@ -47,7 +48,7 @@ export default async function HomePage() {
       <main className="bg-base-950">
         <HeroSection destinationCount={destinationCount} trekCount={trekCount} />
         <StatsBanner />
-        <VisualJourney />
+        <VisualJourney frames={visualFrames} />
         <DestinationsGrid destinations={destinations} totalCount={destinationCount} />
         <GemsSection gems={gems} />
         <TrekkingSection treks={treks} />
