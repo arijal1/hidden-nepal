@@ -23,6 +23,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 import { TrekRouteMap } from "@/components/treks/TrekRouteMap";
 import { getTrekRoute } from "@/lib/content/trek-routes";
+import { AboutThisPage } from "@/components/shared/AboutThisPage";
 
 export default async function TrekDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const trek = await getTrekBySlug((await params).slug);
@@ -214,6 +215,12 @@ export default async function TrekDetailPage({ params }: { params: Promise<{ slu
               </AnimatedSection>
             </aside>
           </div>
+          <AboutThisPage
+            contentType="trek"
+            contentName={trek.name}
+            contentSlug={trek.slug}
+            updatedAt={(trek as any).updatedAt}
+          />
         </div>
       </main>
     </>

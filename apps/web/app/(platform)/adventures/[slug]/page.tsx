@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { getAdventure } from "@/lib/supabase/queries/adventures";
 import { InquiryForm } from "@/components/adventures/InquiryForm";
 import { DestinationMap } from "@/components/destinations/DestinationMap";
+import { AboutThisPage } from "@/components/shared/AboutThisPage";
 
 export const revalidate = 1800;
 
@@ -204,6 +205,11 @@ export default async function AdventureDetailPage({ params }: { params: Promise<
             )}
           </aside>
         </div>
+        <AboutThisPage
+          contentType="adventure"
+          contentName={adv.name}
+          contentSlug={adv.slug}
+        />
       </div>
     </div>
   );

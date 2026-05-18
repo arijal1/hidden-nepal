@@ -15,6 +15,7 @@ import { DestinationMap } from "@/components/destinations/DestinationMap";
 import { SaveButton } from "@/components/destinations/SaveButton";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { difficultyConfig, isBestSeason } from "@/lib/utils/formatters";
+import { AboutThisPage } from "@/components/shared/AboutThisPage";
 
 // ─── Static Generation ────────────────────────────────────────
 
@@ -278,6 +279,12 @@ export default async function DestinationPage({
             </div>
           </AnimatedSection>
 
+          <AboutThisPage
+            contentType="destination"
+            contentName={destination.name}
+            contentSlug={destination.slug}
+            updatedAt={(destination as any).updatedAt}
+          />
         </div>
       </main>
     </>
