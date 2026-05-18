@@ -10,6 +10,7 @@ import { GemsSection } from "@/components/home/GemsSection";
 import { TrekkingSection } from "@/components/home/TrekkingSection";
 import { LivingCulture } from "@/components/home/LivingCulture";
 import { AdventuresSection } from "@/components/home/AdventuresSection";
+import { VisualJourney } from "@/components/home/VisualJourney";
 import { getSignatureAdventures } from "@/lib/supabase/queries/adventures";
 import {
   PlannerTeaser,
@@ -46,6 +47,7 @@ export default async function HomePage() {
       <main className="bg-base-950">
         <HeroSection destinationCount={destinationCount} trekCount={trekCount} />
         <StatsBanner />
+        <VisualJourney />
         <DestinationsGrid destinations={destinations} totalCount={destinationCount} />
         <GemsSection gems={gems} />
         <TrekkingSection treks={treks} />
